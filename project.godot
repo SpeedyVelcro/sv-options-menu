@@ -18,9 +18,13 @@ config/icon="res://icon.svg"
 
 buses/default_bus_layout=""
 
+[autoload]
+
+OptionsConfigProvider="*uid://crsy5td2cnkvc"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg", "res://addons/sv_options_menu/plugin.cfg")
 
 [physics]
 
