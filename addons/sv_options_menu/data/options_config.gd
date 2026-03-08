@@ -17,6 +17,13 @@ enum ManageResolutionMode {
 	FULLSCREEN_AND_WINDOWED
 }
 
+## User-configured options will be saved to and loaded from the json file at
+## this file path. If the file and/or directory structure doesn't exist at
+## runtime, they will be created.
+##
+## Example of a valid value: [code]user://profile/options.json[/code]
+@export var options_file_path: String = "user://user-settings.json"
+
 @export_group("Video")
 ## Use SV Options Menu to manage resolutions in the given modes
 @export var manage_resolution: ManageResolutionMode = ManageResolutionMode.NONE
