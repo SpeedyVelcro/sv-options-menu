@@ -12,6 +12,6 @@ func _init():
 	assert(_options_config is OptionsConfig, "Tried to load OptionsConfig from %s but did not get an OptionsConfig. Maybe it is missing or corrupted?" % OptionsConstants.OPTIONS_CONFIG_PATH)
 
 
-## Gets a fresh copy of the [OptionsConfig]
+## Gets the [OptionsConfig]
 func get_config():
 	return _options_config
