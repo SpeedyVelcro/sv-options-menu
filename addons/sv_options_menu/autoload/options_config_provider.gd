@@ -6,12 +6,12 @@ extends Node
 var _options_config: OptionsConfig
 
 
-# Override
-func _init():
-	_options_config = load(OptionsConstants.OPTIONS_CONFIG_PATH)
-	assert(_options_config is OptionsConfig, "Tried to load OptionsConfig from %s but did not get an OptionsConfig. Maybe it is missing or corrupted?" % OptionsConstants.OPTIONS_CONFIG_PATH)
+## Sets the [OptionsConfig]. All further calls to [method get_config] will
+## return this config.
+func set_config(options_config : OptionsConfig) -> void:
+	_options_config = options_config
 
 
 ## Gets the [OptionsConfig]
-func get_config():
+func get_config() -> OptionsConfig:
 	return _options_config

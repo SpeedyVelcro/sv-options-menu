@@ -17,12 +17,22 @@ enum ManageResolutionMode {
 	FULLSCREEN_AND_WINDOWED
 }
 
-## User-configured options will be saved to and loaded from the json file at
+## Player-configured options will be saved to and loaded from the json file at
 ## this file path. If the file and/or directory structure doesn't exist at
 ## runtime, they will be created.
 ##
 ## Example of a valid value: [code]user://profile/options.json[/code]
-@export var options_file_path: String = "user://user-settings.json"
+@export var local_options_file_path: String = "user://user-settings.json"
+
+## Player-configured options that are marked safe for cloud synchronization will
+## be saved and loaded here instead of [member local_options_file_path].
+@export var cloud_options_file_path: String = "user://user-settings-cloud.json"
+
+## Default options. This will be used as a fallback for any options that aren't
+## set by the player, or it will be used instead if the options file at
+## [member options_file_path] isn't found. If this is null, an empty default
+## options will be used.
+@export var default_options: GameOptions
 
 @export_group("Video")
 ## Use SV Options Menu to manage resolutions in the given modes

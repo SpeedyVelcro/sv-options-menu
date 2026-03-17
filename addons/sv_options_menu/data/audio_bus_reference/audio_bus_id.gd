@@ -7,11 +7,11 @@ extends AudioBusReference
 
 
 ## The ID of the audio bus. See [AudioServer]
-@export var bus_id: int = 0
+@export var bus_id: int
 
 
 # Constructor
-func _init(bus_id: int):
+func _init(bus_id: int = 0): # User should always provide an id but resource loading seems to error out if you can't use the empty constructor
 	self.bus_id = bus_id
 
 
