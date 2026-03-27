@@ -23,3 +23,8 @@ func get_name() -> String:
 # Override
 func get_id() -> int:
 	return bus_id
+
+
+# Override
+func to_variant() -> int:
+	return bus_id

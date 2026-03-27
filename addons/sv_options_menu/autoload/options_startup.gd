@@ -10,7 +10,7 @@ func _ready():
 	var options_config = _load_options_config()
 	
 	OptionsConfigProvider.set_config(options_config)
-	OptionsProvider.set_default_options(options_config.default_options)
+	OptionsProvider.set_default_options(options_config.get_default_options())
 	OptionsProvider.set_local_options(OptionsRepository.new(options_config.local_options_file_path).load_options())
 	OptionsProvider.set_cloud_options(OptionsRepository.new(options_config.cloud_options_file_path).load_options())
 

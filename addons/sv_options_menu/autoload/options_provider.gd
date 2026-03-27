@@ -1,25 +1,28 @@
 extends Node
 ## Provides options
 ##
-## Provides the player-configured [GameOptions]. Unless set by the user directly
-## on the options, cloud options always falls back on local options, and local
-## options always falls back on default options.
+## Provides the player-configured [GameOptions]. Local and cloud options are
+## stored separately and, unless directly set on each GameOptions (which is not
+## recommended, you should just let OptionsProvider handle it), local and cloud
+## options each use the default options as a fallback.
 
 var _default_options: GameOptions = GameOptions.new()
 var _local_options: GameOptions = GameOptions.new()
 var _cloud_options: GameOptions = GameOptions.new()
 
+# TODO: local and cloud options should be separate rather than fallbacks for eachother
 
 # Override
 func _ready():
 	_local_options.set_fallback(_default_options)
-	_cloud_options.set_fallback(_local_options)
+	_cloud_options.set_fallback(_default_options)
 
 
 ## Sets the default [GameOptions]. Calling this method causes the other options
 ## configured by this class to fall back on this one.
 func set_default_options(options: GameOptions) -> void:
 	_local_options.set_fallback(options)
+	_cloud_options.set_fallback(options)
 	_default_options = options
 
 
@@ -31,12 +34,9 @@ func get_default_options(options: GameOptions) -> void:
 
 ## Sets the local [GameOptions]. All further calls to [method get_local_options]
 ## will return this options object. Using this method will also update the
-## fallback to the default options, and the fallback of the cloud options to
-## the given options.
+## fallback to the default options.
 func set_local_options(options: GameOptions) -> void:
 	options.set_fallback(_default_options)
-	_cloud_options.set_fallback(options)
-	
 	_local_options = options
 
 
@@ -48,9 +48,9 @@ func get_local_options() -> GameOptions:
 
 ## This sets the cloud options to the given [GameOptions]. The cloud options
 ## should be the object that contains options safe for cloud synchronization.
-## Using this method will set the fallback of the options to local options.
+## Using this method will set the fallback of the options to default options.
 func set_cloud_options(options: GameOptions) -> void:
-	options.set_fallback(_local_options)
+	options.set_fallback(_default_options)
 	_cloud_options = options
 
 

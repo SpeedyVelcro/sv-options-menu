@@ -13,3 +13,8 @@ extends Resource
 
 ## Returns the ID of the audio bus
 @abstract func get_id() -> int
+
+
+## Returns the specific variant that is being used as the source-of-truth for
+## which audio bus this references. Will be either an int or a String.
+@abstract func to_variant() -> Variant

@@ -23,3 +23,8 @@ func get_name() -> String:
 # Override
 func get_id() -> int:
 	return AudioServer.get_bus_index(bus_name)
+
+
+# Override
+func to_variant() -> String:
+	return bus_name

@@ -22,6 +22,7 @@ buses/default_bus_layout=""
 
 OptionsConfigProvider="*uid://crsy5td2cnkvc"
 OptionsProvider="*uid://bmxkuqvyotq70"
+OptionsStartup="*uid://bg6i2usjy2ola"
 
 [editor_plugins]
 
