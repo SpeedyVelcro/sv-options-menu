@@ -1,0 +1,14 @@
+[gd_resource type="TileSet" format=3 uid="uid://bddirmabykg6n"]
+
+[ext_resource type="Texture2D" uid="uid://b2bhk18vyp4l1" path="res://example/tile/brick/brick.png" id="1_a8rmx"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6oji8"]
+texture = ExtResource("1_a8rmx")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[resource]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_6oji8")

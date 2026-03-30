@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://bnp31prs5pode"]
+
+[ext_resource type="Script" uid="uid://d0fbeoh2wsfks" path="res://example/ui/main_menu/main_menu.gd" id="1_ipy3h"]
+
+[node name="MainMenu" type="Control" unique_id=1082234827]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ipy3h")
+
+[node name="MarginContainer" type="CenterContainer" parent="." unique_id=1987456142]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer" unique_id=1457638306]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel" unique_id=848565953]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer" unique_id=1432698570]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1755706954]
+layout_mode = 2
+text = "Example Game"
+horizontal_alignment = 1
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1238994992]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=2040056939]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1266665316]
+layout_mode = 2
+text = "Options"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=1350244368]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer" unique_id=971062193]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
