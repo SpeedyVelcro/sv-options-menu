@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://bddirmabykg6n" path="res://example/tile/brick/brick_tile_set.tres" id="1_hnnv4"]
 [ext_resource type="PackedScene" uid="uid://lpugk6u5vh4j" path="res://example/entity/player/player.tscn" id="2_61ofl"]
+[ext_resource type="PackedScene" uid="uid://cllx2j7ghh28" path="res://example/ui/pause_menu/pause_menu.tscn" id="3_3ukif"]
 
 [node name="TestLevel" type="Node2D" unique_id=1602429688]
 
@@ -11,3 +12,8 @@ tile_set = ExtResource("1_hnnv4")
 
 [node name="Player" parent="." unique_id=668631703 instance=ExtResource("2_61ofl")]
 position = Vector2(496, 400)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=767900378]
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=72643200 instance=ExtResource("3_3ukif")]
+visible = false

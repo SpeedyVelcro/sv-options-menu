@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cllx2j7ghh28"]
+
+[ext_resource type="Script" uid="uid://d3ga2wwhbc3bt" path="res://example/ui/pause_menu/pause_menu.gd" id="1_jedow"]
+[ext_resource type="PackedScene" uid="uid://dyvhmga74fiy2" path="res://example/ui/options_menu/options_menu.tscn" id="2_8bquw"]
+
+[node name="PauseMenu" type="Control" unique_id=72643200]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jedow")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1698776014]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.45882353)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=729716291]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=35014103]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer" unique_id=1184817641]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer" unique_id=1924042552]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=514667124]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="OptionsButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1358778047]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitToMenuButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1260038264]
+layout_mode = 2
+text = "Exit to Menu"
+
+[node name="ReferenceRect" type="ReferenceRect" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=133281835]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2008056681]
+layout_mode = 2
+text = "Continue"
+
+[node name="OptionsMenu" parent="." unique_id=169916523 instance=ExtResource("2_8bquw")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitToMenuButton" to="." method="_on_exit_to_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="back_pressed" from="OptionsMenu" to="." method="_on_options_menu_back_pressed"]
