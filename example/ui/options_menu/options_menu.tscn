@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dyvhmga74fiy2"]
 
+[ext_resource type="Script" uid="uid://c0cq11ew63r2v" path="res://example/ui/options_menu/options_menu.gd" id="1_lphwd"]
 [ext_resource type="PackedScene" uid="uid://i6168hsfkqt" path="res://addons/sv_options_menu/ui/volume_settings_ui/volume_settings_ui.tscn" id="1_yf2op"]
 
 [node name="OptionsMenu" type="Control" unique_id=169916523]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lphwd")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=378377974]
 layout_mode = 1
@@ -38,10 +40,9 @@ text = "Options"
 [node name="TabContainer" type="TabContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1454605365]
 custom_minimum_size = Vector2(512, 382)
 layout_mode = 2
-current_tab = 2
+current_tab = 0
 
 [node name="Gameplay" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=164905565]
-visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
@@ -71,6 +72,7 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Audio" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=923351543]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 2
@@ -107,6 +109,8 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=35362236]
+[node name="BackButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=35362236]
 layout_mode = 2
 text = "Back"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HFlowContainer/BackButton" to="." method="_on_back_button_pressed"]
