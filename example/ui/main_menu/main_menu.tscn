@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0fbeoh2wsfks" path="res://example/ui/main_menu/main_menu.gd" id="1_ipy3h"]
 [ext_resource type="PackedScene" uid="uid://dyvhmga74fiy2" path="res://example/ui/options_menu/options_menu.tscn" id="2_inwom"]
+[ext_resource type="AudioStream" uid="uid://crlv06fl38605" path="res://example/music/SquidHarry.ogg" id="3_1xs6o"]
 
 [node name="MainMenu" type="Control" unique_id=1082234827]
 layout_mode = 3
@@ -61,6 +62,11 @@ text = "Quit"
 [node name="OptionsMenu" parent="." unique_id=169916523 instance=ExtResource("2_inwom")]
 visible = false
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=400789513]
+stream = ExtResource("3_1xs6o")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="MarginContainer/MainMenuPanel/MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenuPanel/MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
