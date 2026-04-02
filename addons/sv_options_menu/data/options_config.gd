@@ -5,6 +5,8 @@ extends Resource
 ## When a .tres of OptionsConfig is placed in the root of the project, its
 ## exported variables will be used to configure the functionality of SV
 ## Options Menu
+# TODO: It's actually possible for plugins to add this kind of stuff to project settings.
+# This setup works for now, but in the long run it's probably preferable to do that (will need a major version bump ofc).
 
 ## Valid settings for [member manage_resolution], specifying in which modes
 ## SV Options Menu manages resolutions

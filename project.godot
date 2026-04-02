@@ -19,7 +19,8 @@ config/icon="res://icon.svg"
 
 OptionsConfigProvider="*uid://crsy5td2cnkvc"
 OptionsProvider="*uid://bmxkuqvyotq70"
-OptionsStartup="*uid://bg6i2usjy2ola"
+OptionsLifecycle="*uid://bg6i2usjy2ola"
+OptionsSaver="*uid://byw1rlb3hl7lb"
 
 [editor_plugins]
 

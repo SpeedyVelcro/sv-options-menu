@@ -19,6 +19,7 @@ func _on_options_button_pressed() -> void:
 
 # Signal connection
 func _on_quit_button_pressed() -> void:
+	OptionsSaver.save()
 	get_tree().quit()
 
 
