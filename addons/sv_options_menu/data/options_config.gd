@@ -8,15 +8,21 @@ extends Resource
 # TODO: It's actually possible for plugins to add this kind of stuff to project settings.
 # This setup works for now, but in the long run it's probably preferable to do that (will need a major version bump ofc).
 
-## Valid settings for [member manage_resolution], specifying in which modes
-## SV Options Menu manages resolutions
-enum ManageResolutionMode {
-	## Do not manage resolutions
-	NONE,
-	## Manage resolutions in windowed mode only
-	WINDOWED,
-	## Manage resolutions in both fullscreen and windowed mode
-	FULLSCREEN_AND_WINDOWED
+## How to set the default resolution on startup. Used for [member default_resolution_handling]
+enum DefaultResolutionHandling {
+	## Use the default resolution set in [member default_resolution]
+	STATIC,
+	## Set the default resolution based on current display size. Clamp each
+	## dimension according to [member maximum_auto_resolution], with no regard
+	## for aspect ratio (unless set in [member force_aspect_ratio], in which
+	## case the behaviour is the same as AUTO_DISPLAY_ASPECT_RATIO).
+	AUTO_DISPLAY_CLAMPED,
+	## Set the default resolution based on current display size. If the current
+	## display is larger than [member maximum_auto_resolution], then the default
+	## resolution will be the largest possible resolution that respects that
+	## maximum but still adheres to the display's aspect ratio (or the aspect
+	## ratio in [member force_aspect_ratio] if set)
+	AUTO_DISPLAY_ASPECT_RATIO
 }
 
 ## Player-configured options will be saved to and loaded from the json file at
@@ -35,9 +41,48 @@ enum ManageResolutionMode {
 ## (only default options configured elsewhere on this class will be used).
 @export var custom_default_options: GameOptions
 
-@export_group("Video")
-## Use SV Options Menu to manage resolutions in the given modes
-@export var manage_resolution: ManageResolutionMode = ManageResolutionMode.NONE
+@export_group("Display")
+## Master setting for whether SV Options Menu manages resolution. See the other
+## "managed" variables for what exactly the configured resolution affects
+@export var manage_resolution: bool
+
+@export var resolution_option_path: String = "display/resolution"
+
+## Resolution settings are used to change the viewport when in windowed mode.
+## Only has an effect if [member manage_resolution] is [code]true[/code].
+@export var manage_windowed_viewport: bool
+
+## Resolution settings are used to change the viewport when in fullscreen mode.
+## Only has an effect if [member manage_resolution] is [code]true[/code].
+@export var manage_fullscreen_viewport: bool
+
+## Resolution settings are used to change the window size when in windowed mode.
+## Only has an effect if [member manage_resolution] is [code]true[/code].
+@export var manage_window_size: bool
+
+## Determines whether SV Options Menu manages window mode of the primary
+## game window. The default value will be the one set in project settings.
+@export var manage_window_mode: bool
+
+## Path to store window mode in [GameOptions]. Used if [member manage_window_mode]
+## is [code]true[/code].
+@export var window_mode_option_path: String = "display/window_mode"
+
+## Determines how SV Options Menu determines default resolution on startup.
+@export var default_resolution_handling: DefaultResolutionHandling = DefaultResolutionHandling.STATIC
+
+## Default resolution to use if [member default_resolution_handling] is not set
+## to auto-configure default resolution. If this is set to (0, 0), the viewport
+## size in project settings will be used.
+@export var default_resolution: Vector2i = Vector2i(0, 0)
+
+## If this is set to anything other than (0, 0), the aspect ratio will be forced
+## to this ratio when determining default resolution.
+@export var force_aspect_ratio: Vector2i = Vector2i(0, 0)
+
+## Maximum resolution to be allowed when auto-configuring default resolution.
+## If this is set to (0, 0), then there is no maximum.
+@export var maximum_auto_resolution: Vector2i = Vector2i(0, 0)
 
 @export_group("Audio")
 ## Use SV Options Menu to configure volume settings - including muting - for
