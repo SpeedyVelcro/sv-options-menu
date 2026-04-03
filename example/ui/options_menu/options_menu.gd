@@ -9,4 +9,5 @@ signal back_pressed
 
 # Signal connection
 func _on_back_button_pressed() -> void:
+	OptionsSaver.save()
 	back_pressed.emit()

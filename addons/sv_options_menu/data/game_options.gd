@@ -5,16 +5,15 @@ extends Resource
 ## Encapsulates a [Dictionary] of user-configured options, with associated
 ## utility methods for reading and changing these options. The dictionary
 ## is a dictionary of values and, possibly, nested dictionaries.
-# TODO: Remove all strings at top-level requirement - it's not really necessary for the functionality
 # TODO: has_option and has_option_by_keys methods
 # TODO: unset_option and unset_options_by_keys methods
 
-var _options: Dictionary[String, Variant]
+var _options: Dictionary
 var _fallback: GameOptions = null
 
 
 # Override
-func _init(dictionary: Dictionary[String, Variant] = {}):
+func _init(dictionary: Dictionary = {}):
 	_options = dictionary
 
 
@@ -31,13 +30,9 @@ func get_option(key_or_path: String) -> Variant:
 
 
 ## As [member get_option], but provide the path as an array of keys. This is
-## useful if you have a non-string key somewhere down the hierarchy (not at the
-## top level of course because the top level must all be strings)
+## useful if you have a non-string key somewhere down the hierarchy.
 func get_option_by_keys(keys: Array, log_name := "") -> Variant:
 	log_name = log_name if not log_name.is_empty() else var_to_str(keys)
-	
-	if (keys[0] is not String):
-		push_error("Cannot get option at %s because the top-level key needs to be a string." % log_name)
 	
 	var current_level: Variant = _options
 	for key in keys:
@@ -64,16 +59,11 @@ func set_option(key_or_path: String, value: Variant) -> void:
 	set_option_by_keys(keys, value, key_or_path)
 
 ## As [member set_option], but provide the path as an array of keys. This is
-## useful if you have a non-string type somewhere down the hierarchy (not at the
-## top level of course because the top level must all be strings). Otherwise, it
-## is recommended to just use the set_option function as it has an easier
+## useful if you have a non-string type somewhere down the hierarchy. Otherwise,
+## it is recommended to just use the set_option function as it has an easier
 ## contract.
 func set_option_by_keys(keys: Array, value: Variant, log_name := "") -> void:
 	log_name = log_name if not log_name.is_empty() else var_to_str(keys)
-	
-	if keys[0] is not String:
-		push_error("Cannot set option at %s. The top level key must be a string." % log_name)
-		return
 	
 	var except_last = func (arr: Array) -> Array: return arr.slice(0, -1)
 	
@@ -109,8 +99,6 @@ func serialize() -> Dictionary:
 
 ## Creates a [GameOptions] from a [Dictionary].
 static func deserialize(from: Dictionary) -> GameOptions:
-	assert(from.keys().all(func(key: Variant): key is String), "Deserializing GameOptions: not all keys at the top level were string keys.")
-	
 	return GameOptions.new(from)
 
 
