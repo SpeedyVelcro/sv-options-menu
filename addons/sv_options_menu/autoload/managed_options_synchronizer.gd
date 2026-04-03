@@ -1,7 +1,7 @@
 extends Node
 ## Autoloaded service to synchronize managed game options and engine singletons.
 ##
-## This service enforces consistency engine singleton settings and their
+## This service enforces consistency of engine singleton settings and their
 ## corresponding settings on [GameOptions] for all those options marked as
 ## "managed" in [OptionsConfig].
 
@@ -64,7 +64,7 @@ func _apply_volume_settings(volume_settings: Dictionary) -> void:
 		else:
 			push_error("Audio bus %s volume level setting was missing or wrong type. Volume level will not be applied for this bus." % bus_key)
 		
-		if bus_settings.has("mute") and bus_settings["mute"] is float:
+		if bus_settings.has("mute") and bus_settings["mute"] is bool:
 			AudioServer.set_bus_mute(bus_ref.get_id(), bus_settings["mute"])
 		else:
 			push_error("Audio bus %s mute setting was missing or wrong type. Mute will not be applied for this bus." % bus_key)

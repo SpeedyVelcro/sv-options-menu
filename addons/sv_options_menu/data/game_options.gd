@@ -44,7 +44,30 @@ func get_option_by_keys(keys: Array, log_name := "") -> Variant:
 		push_warning("Attempted to access option at path %s in GameOptions, but this did not exist in GameOptions or any fallback. Returning default of null." % log_name)
 		return null
 	
+	if current_level is Dictionary and _fallback != null:
+		# If the path is partial (i.e. not a leaf value) it needs to be merged with fallback values
+		# so defaults that haven't been overridden aren't missing
+		
+		var fallback_dict = _fallback.get_option_by_keys(keys, log_name) # TODO: suppress errors
+		if fallback_dict is not Dictionary:
+			return current_level # Nothing to merge
+		
+		# Duplicate so we don't pollute the GameOption's underlying dictionary with defaults.
+		var new_dict = current_level.duplicate_deep(DeepDuplicateMode.DEEP_DUPLICATE_ALL)
+		_dictionary_deep_merge(new_dict, fallback_dict)
+		return new_dict
+	
 	return current_level
+
+
+func _dictionary_deep_merge(dict: Dictionary, fallback: Dictionary) -> void:
+	for key: Variant in dict.keys():
+		if dict[key] is Dictionary and fallback.has(key) and fallback[key] is Dictionary:
+			_dictionary_deep_merge(dict[key], fallback[key])
+	
+	for fallback_key in fallback.keys():
+		if not dict.has(fallback_key):
+			dict[fallback_key] = fallback[fallback_key]
 
 
 ## Sets the option at the given key to the given value. The value needs to be
