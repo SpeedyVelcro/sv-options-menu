@@ -50,17 +50,27 @@ enum DefaultResolutionHandling {
 
 @export var resolution_option_path: String = "display/resolution"
 
-## Resolution settings are used to change the viewport when in windowed mode.
+## Resolution settings are used to change the window content size when in windowed mode.
 ## Only has an effect if [member manage_resolution] is [code]true[/code].
-@export var manage_windowed_viewport: bool
+## By default, doesn't do anything unless ProjectSettings.display/window/stretch/mode
+## is set to something other than "disabled" so that the main window's content size
+## can be set separately.
+@export var resolution_affects_windowed_content_size: bool = true
 
-## Resolution settings are used to change the viewport when in fullscreen mode.
+## Resolution settings are used to change the window content size when in fullscreen mode.
 ## Only has an effect if [member manage_resolution] is [code]true[/code].
-@export var manage_fullscreen_viewport: bool
+## By default, doesn't do anything unless ProjectSettings.display/window/stretch/mode
+## is set to something other than "disabled" so that the main window's content size
+## can be set separately.
+@export var resolution_affects_fullscreen_content_size: bool = true
 
 ## Resolution settings are used to change the window size when in windowed mode.
 ## Only has an effect if [member manage_resolution] is [code]true[/code].
-@export var manage_window_size: bool
+@export var resolution_affects_windowed_window_size: bool = true
+
+## Resolution settings are used to change the window size when in fullscreen mode.
+## Only has an effect if [member manage_resolution] is [code]true[/code].
+@export var resolution_affects_fullscreen_window_size: bool = true
 
 ## Determines whether SV Options Menu manages window mode of the primary
 ## game window. The default value will be the one set in project settings.

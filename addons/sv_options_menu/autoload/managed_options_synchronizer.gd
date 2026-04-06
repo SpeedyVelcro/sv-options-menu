@@ -17,6 +17,9 @@ func apply() -> void:
 	var options_with_volume = cloud_options if config.volume_cloud_sync else local_options
 	var options_with_output_device = cloud_options if config.output_device_cloud_sync else local_options
 	var options_with_input_device = cloud_options if config.input_device_cloud_sync else local_options
+	var options_with_resolution = local_options
+	var options_with_window_mode = local_options
+	var options_with_screen = local_options
 	
 	if config.manage_volume:
 		var volume_settings = options_with_volume.get_option(config.volume_option_path)
@@ -38,9 +41,27 @@ func apply() -> void:
 			AudioServer.input_device = input_device
 		else:
 			push_error("Input device configured in options was missing or not a string or not a valid output device. Input device setting will not be applied.")
+	
+	if config.manage_resolution or config.manage_window_mode:
+		var resolution = options_with_resolution.get_option(config.resolution_option_path) if config.manage_resolution else Vector2i(0, 0)
+		var window_mode = options_with_window_mode.get_option(config.window_mode_option_path) if config.manage_window_mode else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
+		if resolution is not Vector2i:
+			push_error("Resolution configured in options was missing. Skipping applying window settings.")
+		elif window_mode is not DisplayServer.WindowMode:
+			push_error("Window mode configured in options was missing. Skipping applying window settings.")
+		else:
+			OptionsDisplayService.apply_window_settings(window_mode, resolution, config)
+	
+	if config.manage_screen:
+		var screen = options_with_screen.get_option(config.screen_option_path)
+		if screen is int:
+			OptionsDisplayService.apply_screen(screen)
+		else:
+			push_error("Screen configured in options was missing. Skipping applying screen.")
 
 
 func _apply_volume_settings(volume_settings: Dictionary) -> void:
+	# TODO: move to an OptionsAudioService
 	for bus_key in volume_settings.keys():
 		var bus_ref: AudioBusReference
 		if bus_key is int:
