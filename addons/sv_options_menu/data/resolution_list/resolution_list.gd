@@ -26,6 +26,31 @@ func _init(resolutions: Array[Vector2i] = []) -> void:
 		if _resolutions[i] == _resolutions[i + 1]:
 			_resolutions.remove_at(i)
 
+
+# Override
+func _iter_init(iter: Array) -> bool:
+	iter[0] = 0
+	return iter[0] < _resolutions.size()
+
+
+# Override
+func _iter_next(iter: Array) -> bool:
+	iter[0] += 1
+	return iter[0] < _resolutions.size()
+
+
+# Override
+func _iter_get(iter: Variant) -> Vector2i:
+	assert(iter is int, "Error while iterating through ResolutionList: iterator was not an int! It has a Variant.Type of %d" % typeof(iter))
+	return get_resolution(iter)
+
+
+## Get the resolution in the given position in this list. Operates similarly
+## to [method Array.get]
+func get_resolution(index: int) -> Vector2i:
+	return _resolutions.get(index)
+
+
 ## Get all the resolutions in this list as an array of vectors.
 func get_resolutions() -> Array[Vector2i]:
 	return _resolutions.duplicate_deep()
@@ -36,9 +61,21 @@ func has_resolution(resolution: Vector2i) -> bool:
 	return _resolutions.has(resolution)
 
 
+## Gets the position of the specified resolution in this list.
+func get_resolution_index(resolution: Vector2i):
+	return _resolutions.find(resolution)
+
+
 ## Returns the number of resolutions in the list.
 func size() -> int:
 	return _resolutions.size()
+
+
+## Returns a new [ResolutionList] filtered by the given callable. The callable
+## should accept one [Vector2i] argument and return true if the resolution
+## should be included in the new list, false otherwise.
+func filter(method: Callable) -> ResolutionList:
+	return ResolutionList.new(_resolutions.filter(method))
 
 
 ## Combines this list with the given list, returning a new resolution list
@@ -61,6 +98,21 @@ static func combine(resolution_lists: Array[ResolutionList]) -> ResolutionList:
 		acc = _combine_two(acc, resolution_list)
 	
 	return acc
+
+## clamps the given resolution list between the minimum and maximum resolutions
+## by removing all resolutions that have a dimension smaller than the minimum
+## or larger than the maximum. If minimum or maximum has a negative dimension,
+## then there is no minimum or maximum on that dimension respectively.
+static func clamp_between(resolution_list: ResolutionList, minimum := Vector2i(-1, -1), maximum := Vector2i(-1, -1)) -> ResolutionList:
+	var clamped := resolution_list.get_resolutions().filter(func (res: Vector2i) -> bool:
+		if minimum.x >= 0 and res.x < minimum.x: return false
+		if minimum.y >= 0 and res.y < minimum.y: return false
+		if maximum.x >= 0 and res.x > maximum.x: return false
+		if maximum.y >= 0 and res.y > maximum.y: return false
+		return true
+		)
+	
+	return ResolutionList.new(clamped)
 
 
 static func _combine_two(resolution_list_a: ResolutionList, resolution_list_b: ResolutionList) -> ResolutionList:

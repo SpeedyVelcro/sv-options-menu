@@ -50,12 +50,12 @@ func apply() -> void:
 		elif window_mode is not DisplayServer.WindowMode:
 			push_error("Window mode configured in options was missing. Skipping applying window settings.")
 		else:
-			OptionsDisplayService.apply_window_settings(window_mode, resolution, config)
+			OptionsDisplayHelper.apply_window_settings(window_mode, resolution, config)
 	
 	if config.manage_screen:
 		var screen = options_with_screen.get_option(config.screen_option_path)
 		if screen is int:
-			OptionsDisplayService.apply_screen(screen)
+			OptionsDisplayHelper.apply_screen(screen)
 		else:
 			push_error("Screen configured in options was missing. Skipping applying screen.")
 

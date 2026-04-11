@@ -68,6 +68,7 @@ enum DefaultResolutionHandling {
 ## Only has an effect if [member manage_resolution] is [code]true[/code].
 @export var resolution_affects_windowed_window_size: bool = true
 
+# TODO: remove this property as docs suggest entering fullscreen mode changes window size
 ## Resolution settings are used to change the window size when in fullscreen mode.
 ## Only has an effect if [member manage_resolution] is [code]true[/code].
 @export var resolution_affects_fullscreen_window_size: bool = true
@@ -82,7 +83,7 @@ enum DefaultResolutionHandling {
 
 ## Determines whether SV Options Menu manages the screen the game displays on.
 ## The default value will be the primary screen.
-@export var manage_screen: bool
+@export var manage_screen: bool = false
 
 ## Path to store the screen the game displays on in [GameOptions]. Used if
 ## [member manage_screen] is [code]true[/code].
@@ -92,7 +93,9 @@ enum DefaultResolutionHandling {
 @export var default_resolution_handling: DefaultResolutionHandling = DefaultResolutionHandling.STATIC
 
 ## If true, SV Options Menu will automatically calculate the default resolution
-## based on display size instead of using [member default_resolution]
+## based on display size instead of using [member default_resolution]. It is
+## recommended to only turn this on if you default to fullscreen mode, as
+## otherwise the default resolution may shove the title bar off the screen.
 @export var auto_default_resolution: bool
 
 ## Default resolution to use if [member auto_default_resolution] is not set
@@ -130,6 +133,7 @@ enum DefaultResolutionHandling {
 ## [member manage_output_device] is set to [code]true[/code].
 @export var output_device_option_path: String = "audio/output_device"
 
+# TODO: Remove, as setting this to true would be crazy
 ## True if output device setting should be synced to cloud instead of stored
 ## locally. Only has an effect if [member manage_output_device] is set to
 ## [code]true[/code]. It is not recommended to set this, as output device
@@ -143,6 +147,7 @@ enum DefaultResolutionHandling {
 ## [member manage_input_device] is set to [code]true[/code].
 @export var input_device_option_path: String = "audio/input_device"
 
+# TODO: remove, as setting this to true would be crazy
 ## True if input device setting should be synced to cloud instead of stored
 ## locally. Only has an effect if [member manage_input_device] is set to
 ## [code]true[/code]. It is not recommended to set this, as output device
@@ -220,7 +225,7 @@ func get_default_options() -> GameOptions:
 		default_options.set_option(screen_option_path, DisplayServer.SCREEN_PRIMARY)
 	
 	if manage_resolution:
-		default_options.set_option(resolution_option_path, _calculate_default_resolution(DisplayServer.SCREEN_PRIMARY))
+		default_options.set_option(resolution_option_path, calculate_default_resolution(DisplayServer.SCREEN_PRIMARY))
 	
 	return default_options
 
@@ -243,9 +248,17 @@ func _audio_bus_to_volume_base_path(ref: AudioBusReference) -> Array:
 	return GameOptions.path_to_keys(volume_option_path) + [bus_key]
 
 
-func _calculate_default_resolution(for_display: int) -> Vector2i:
+## Calculates the default resolution if set to auto, otherwise returns the
+## set default resolution.
+func calculate_default_resolution(for_display: int) -> Vector2i:
 	if default_resolution_handling == DefaultResolutionHandling.STATIC:
-		return default_resolution
+		if default_resolution.x > 0 and default_resolution.y > 0:
+			return default_resolution
+		else:
+			return Vector2i(
+				ProjectSettings.get_setting_with_override("display/window/size/viewport_width"),
+				ProjectSettings.get_setting_with_override("display/window/size/viewport_height")
+			)
 	
 	var display_size := DisplayServer.screen_get_size(for_display)
 	if default_resolution_handling == DefaultResolutionHandling.DISPLAY:
@@ -256,40 +269,10 @@ func _calculate_default_resolution(for_display: int) -> Vector2i:
 		return clamped
 	
 	if default_resolution_handling == DefaultResolutionHandling.MAINTAIN_ASPECT:
-		return _fit_aspect_ratio(_get_aspect_ratio(display_size), clamped)
+		return AspectRatioHelper.fit_aspect_ratio_within(AspectRatioHelper.to_aspect_ratio(display_size), clamped)
 	
 	if default_resolution_handling == DefaultResolutionHandling.FORCE_ASPECT:
-		return _fit_aspect_ratio(_get_aspect_ratio(force_aspect_ratio), clamped)
+		return AspectRatioHelper.fit_aspect_ratio_within(AspectRatioHelper.to_aspect_ratio(force_aspect_ratio), clamped)
 	
 	push_error("Invalid default resolution handling. Using current window size as fallback.")
 	return DisplayServer.window_get_size()
-
-
-func _fit_aspect_ratio(aspect: Vector2i, within: Vector2i) -> Vector2i:
-	var limited_by_x = within.x / within.y < aspect.x / aspect.y
-	
-	var multiply_by: int
-	if limited_by_x:
-		multiply_by = floori(within.x / aspect.x)
-	else:
-		multiply_by = floori(within.y / aspect.y)
-	
-	return aspect * multiply_by
-
-
-func _get_aspect_ratio(vec: Vector2i) -> Vector2i:
-	return vec / _highest_common_factor(vec.x, vec.y)
-
-
-func _highest_common_factor(a: int, b: int) -> int:
-	# Euclid's algorithm requires a > b
-	if b > a:
-		var swap = a
-		a = b
-		b = swap
-	
-	var r: int = a % b
-	if r == 0:
-		return b
-	else:
-		return _highest_common_factor(b, r)

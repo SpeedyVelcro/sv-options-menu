@@ -51,5 +51,8 @@ metadata/_custom_type_script = "uid://bgpntw2sb3xq1"
 
 [resource]
 script = ExtResource("4_24d8f")
+manage_resolution = true
+manage_window_mode = true
+manage_screen = true
 manage_volume = true
 editable_buses = Array[Object]([SubResource("Resource_24d8f"), SubResource("Resource_dcy7j"), SubResource("Resource_sbmeu"), SubResource("Resource_r3xow")])
