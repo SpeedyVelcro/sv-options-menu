@@ -1,8 +1,9 @@
 extends GridContainer
 ## Settings UI for volume options
 ##
-## Settings UI for volume options, when managed by SV Options Menu (see
-## [member OptionsConfig.manage_volume])
+## Settings UI for volume options, when managed by SV Options Menu.
+## [member OptionsConfig.manage_volume] must be enabled, otherwise this
+## scene will hide itself.
 
 ## Icon displayed by mute buttons when sound is on
 @export var mute_button_icon_unmuted: Texture2D
@@ -14,6 +15,9 @@ var _bus_editor_scene = preload("res://addons/sv_options_menu/ui/volume_settings
 
 # Override
 func _ready() -> void:
+	if not OptionsConfigProvider.get_config().manage_volume:
+		visible = false
+	
 	_remove_placeholders()
 	_populate_controls()
 

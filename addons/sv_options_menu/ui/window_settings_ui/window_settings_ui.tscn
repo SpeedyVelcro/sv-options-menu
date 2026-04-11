@@ -43,6 +43,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "1280"
+context_menu_enabled = false
+emoji_menu_enabled = false
+select_all_on_focus = true
 
 [node name="Label" type="Label" parent="VBoxContainer/CustomResolutionHBoxContainer" unique_id=1296039466]
 layout_mode = 2
@@ -54,6 +57,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "720"
+context_menu_enabled = false
+emoji_menu_enabled = false
+select_all_on_focus = true
 
 [node name="ScreenHBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=841614511]
 layout_mode = 2
@@ -82,3 +88,8 @@ including fullscreen/windowed mode, resolution,
 and screen. These specific settings are not
 saved until you apply them."
 text = "Apply Settings"
+
+[connection signal="toggled" from="VBoxContainer/CustomResolutionCheckBox" to="." method="_on_custom_resolution_check_box_toggled"]
+[connection signal="text_changed" from="VBoxContainer/CustomResolutionHBoxContainer/WidthLineEdit" to="." method="_on_width_line_edit_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/CustomResolutionHBoxContainer/HeightLineEdit" to="." method="_on_height_line_edit_text_changed"]
+[connection signal="pressed" from="ApplyButton" to="." method="_on_apply_button_pressed"]

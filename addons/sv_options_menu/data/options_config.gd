@@ -225,7 +225,9 @@ func get_default_options() -> GameOptions:
 		default_options.set_option(screen_option_path, DisplayServer.SCREEN_PRIMARY)
 	
 	if manage_resolution:
-		default_options.set_option(resolution_option_path, calculate_default_resolution(DisplayServer.SCREEN_PRIMARY))
+		var res := calculate_default_resolution(DisplayServer.SCREEN_PRIMARY)
+		default_options.set_option(get_resolution_x_path(), res.x)
+		default_options.set_option(get_resolution_y_path(), res.y)
 	
 	return default_options
 
@@ -241,6 +243,16 @@ func get_audio_bus_volume_path(ref: AudioBusReference) -> Array:
 ## reference may be an integer if it's by id.
 func get_audio_bus_mute_path(ref: AudioBusReference) -> Array:
 	return _audio_bus_to_volume_base_path(ref) + ["mute"]
+
+
+## Gets the paths to the resolution's width dimension
+func get_resolution_x_path() -> String:
+	return resolution_option_path + "/x"
+
+
+## Gets the paths to the resolution's height dimension
+func get_resolution_y_path() -> String:
+	return resolution_option_path + "/y"
 
 
 func _audio_bus_to_volume_base_path(ref: AudioBusReference) -> Array:

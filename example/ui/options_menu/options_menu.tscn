@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0cq11ew63r2v" path="res://example/ui/options_menu/options_menu.gd" id="1_lphwd"]
 [ext_resource type="PackedScene" uid="uid://i6168hsfkqt" path="res://addons/sv_options_menu/ui/volume_settings_ui/volume_settings_ui.tscn" id="1_yf2op"]
+[ext_resource type="PackedScene" uid="uid://cg3sk7atw1rs3" path="res://addons/sv_options_menu/ui/window_settings_ui/window_settings_ui.tscn" id="2_nvlck"]
 
 [node name="OptionsMenu" type="Control" unique_id=169916523]
 layout_mode = 3
@@ -40,9 +41,10 @@ text = "Options"
 [node name="TabContainer" type="TabContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1454605365]
 custom_minimum_size = Vector2(512, 382)
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Gameplay" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=164905565]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
@@ -57,7 +59,6 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Video" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=377674327]
-visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 1
@@ -70,6 +71,17 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer" unique_id=581054512]
+layout_mode = 2
+
+[node name="WindowSettingsUI" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer" unique_id=1430727212 instance=ExtResource("2_nvlck")]
+layout_mode = 2
+size_flags_horizontal = 0
+historical_standards_selectable = true
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer" unique_id=901810350]
+layout_mode = 2
 
 [node name="Audio" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=923351543]
 visible = false

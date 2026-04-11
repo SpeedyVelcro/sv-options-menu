@@ -6,16 +6,16 @@ extends HBoxContainer
 ## changes are not applied or even saved until that button is pressed. This is
 ## so that the player can comfortably adjust the settings without the UI
 ## jumping all over the place.
-# TODO: grey out apply button if managing resolution and no resolution is selected
-# TODO: grey out apply button if managing resolution and using custom resolution but a dimension is missing
-# TODO: grey out apply button if managing screen and no screen is selected
-# TODO: grey out apply button if managing window mode and no window mode is selected
+##
+## At least one of [member OptionsConfig.manage_resolution],
+## [member OptionsConfig.manage_window_mode], or [member OptionsConfig.manage_screen]
+## must be enabled, otherwise this scene will hide itself.
 
 
 ## Whether to display a "custom resolution" checkbox that, when checked, allows
 ## the player to manually type in a resolution instead of selecting the presets
 ## from a dropdown.
-@export var allow_custom_resolution: bool:
+@export var allow_custom_resolution: bool = true:
 	get:
 		return allow_custom_resolution
 	set(value):
@@ -72,13 +72,32 @@ extends HBoxContainer
 @onready var _resolution_height_line_edit: LineEdit = $VBoxContainer/CustomResolutionHBoxContainer/HeightLineEdit
 @onready var _screen_container: Control = $VBoxContainer/ScreenHBoxContainer
 @onready var _screen_option_button: OptionButton = $VBoxContainer/ScreenHBoxContainer/ScreenOptionButton
+@onready var _apply_button: Button = $ApplyButton
 
 var _selectable_resolutions: ResolutionList
+var _using_custom_resolution: bool = false
 
 
 # Override
-func _ready():
+func _ready() -> void:
 	# TODO: Hide options that aren't managed
+	var options_config = OptionsConfigProvider.get_config()
+	if not (options_config.manage_resolution or options_config.manage_window_mode or options_config.manage_screen):
+		visible = false
+	
+	if not options_config.manage_resolution:
+		_resolution_option_button.visible = false
+		_custom_resolution_check_box.visible = false
+		_custom_resolution_container.visible = false
+	
+	if not options_config.manage_window_mode:
+		_window_mode_option_button.visible = false
+	
+	if not options_config.manage_screen:
+		_screen_container.visible = false
+	
+	if not allow_custom_resolution:
+		_custom_resolution_check_box.visible = false
 	
 	_populate_resolutions()
 	_populate_window_modes()
@@ -92,13 +111,62 @@ func _ready():
 ## next entering the options menu.
 ##
 ## You do not need to call this on ready as that already happens automatically.
-func set_to_current_settings():
-	_select_current_resolution()
-	_select_current_window_mode()
-	_select_current_screen()
+func set_to_current_settings() -> void:
+	var options_config = OptionsConfigProvider.get_config()
+	
+	if options_config.manage_resolution:
+		_select_current_resolution()
+	
+	if options_config.manage_window_mode:
+		_select_current_window_mode()
+	
+	if options_config.manage_screen:
+		_select_current_screen()
+	
+	_apply_button.disabled = not _validate()
 
 
-func _select_current_resolution():
+## Applies the current settings
+func apply() -> void:
+	if not _validate():
+		push_error("Attempted to apply invalid window settings")
+		return
+	
+	var options_config = OptionsConfigProvider.get_config()
+	
+	var resolution: Vector2i
+	if _using_custom_resolution:
+		resolution = Vector2i(int(_resolution_width_line_edit.text), int(_resolution_height_line_edit.text))
+	else:
+		resolution = _selectable_resolutions.get_resolution(_resolution_option_button.selected)
+	
+	var window_mode: int = _window_mode_option_button.get_item_id(_window_mode_option_button.selected)
+	
+	var screen = _option_button_id_to_screen(_screen_option_button.get_item_id(_screen_option_button.selected))
+	
+	OptionsDisplayHelper.apply_window_settings(window_mode, resolution, options_config)
+	
+	if options_config.manage_screen:
+		OptionsDisplayHelper.apply_screen(screen)
+	
+	# Now save to options
+	var options := OptionsProvider.get_local_options()
+	
+	if options_config.manage_resolution:
+		options.set_option(options_config.get_resolution_x_path(), resolution.x)
+		options.set_option(options_config.get_resolution_y_path(), resolution.y)
+	
+	if options_config.manage_window_mode:
+		options.set_option(options_config.window_mode_option_path, window_mode)
+	
+	if options_config.manage_screen:
+		options.set_option(options_config.screen_option_path, screen)
+
+
+func _select_current_resolution() -> void:
+	_custom_resolution_check_box.set_pressed_no_signal(false)
+	_set_using_custom_resolution(false)
+	
 	var res = OptionsDisplayHelper.get_current_resolution(OptionsConfigProvider.get_config())
 	
 	_resolution_width_line_edit.text = str(res.x)
@@ -114,10 +182,11 @@ func _select_current_resolution():
 		_resolution_option_button.select(-1)
 	
 	if allow_custom_resolution:
-		pass # TODO: Check custom resolution box, display custom resolution settings and hide dropdown
+		_custom_resolution_check_box.set_pressed_no_signal(true)
+		_set_using_custom_resolution(true)
 
 
-func _select_current_window_mode():
+func _select_current_window_mode() -> void:
 	var window_mode := DisplayServer.window_get_mode()
 	
 	if selectable_window_modes.has(window_mode):
@@ -130,7 +199,7 @@ func _select_current_window_mode():
 		_window_mode_option_button.select(-1)
 
 
-func _select_current_screen():
+func _select_current_screen() -> void:
 	# Because screen setting (at least the way we handle it) is only meaningful on apply
 	# (e.g. if you're on the primary screen, should the setting be primary or that
 	# screen's number?) we use the current setting in the [GameOptions] instead of
@@ -151,7 +220,7 @@ func _select_current_screen():
 	_screen_option_button.select(_screen_option_button.get_item_index(_screen_to_option_button_id(DisplayServer.SCREEN_PRIMARY)))
 
 
-func _populate_resolutions():
+func _populate_resolutions() -> void:
 	var resolutions_to_include: Array[ResolutionList] = []
 	
 	if modern_standards_selectable:
@@ -210,7 +279,7 @@ func _populate_resolutions():
 		_resolution_option_button.add_item(resolution_name) # Index already matches resolution list due to earlier clear
 
 
-func _populate_window_modes():
+func _populate_window_modes() -> void:
 	_window_mode_option_button.clear()
 	
 	const TR_CONTEXT := "SVOptionsMenuWindowMode"
@@ -230,7 +299,7 @@ func _populate_window_modes():
 		_window_mode_option_button.add_item(text, window_mode)
 
 
-func _populate_screens():
+func _populate_screens() -> void:
 	_screen_option_button.clear()
 	
 	_screen_option_button.add_item(tr("Primary", "SVOptionsMenuScreen"), _screen_to_option_button_id(DisplayServer.SCREEN_PRIMARY))
@@ -241,7 +310,7 @@ func _populate_screens():
 		_screen_option_button.add_item(str(screen + 1), _screen_to_option_button_id(screen))
 
 
-func _screen_to_option_button_id(screen: int):
+func _screen_to_option_button_id(screen: int) -> int:
 	if screen == DisplayServer.SCREEN_PRIMARY:
 		return 0
 	
@@ -251,7 +320,7 @@ func _screen_to_option_button_id(screen: int):
 	return screen
 
 
-func _option_button_id_to_screen(id: int):
+func _option_button_id_to_screen(id: int) -> int:
 	if id == 0:
 		return DisplayServer.SCREEN_PRIMARY
 	
@@ -261,5 +330,57 @@ func _option_button_id_to_screen(id: int):
 	return id
 
 
-func _is_screen_option_button_id_valid(id: int):
+func _is_screen_option_button_id_valid(id: int) -> bool:
 	return id >= 0 and id < DisplayServer.get_screen_count() + 1
+
+
+func _set_using_custom_resolution(value: bool) -> void:
+	_using_custom_resolution = value
+	_custom_resolution_container.visible = value
+	_resolution_option_button.visible = not value
+	
+	_apply_button.disabled = not _validate()
+
+
+func _validate() -> bool:
+	var options_config = OptionsConfigProvider.get_config()
+	var resolution_dimension_regex = RegEx.create_from_string("^[1-9][0-9]*$")
+	
+	if options_config.manage_resolution:
+		if _using_custom_resolution:
+			if resolution_dimension_regex.search(_resolution_width_line_edit.text) == null:
+				return false
+			if resolution_dimension_regex.search(_resolution_height_line_edit.text) == null:
+				return false
+		else:
+			if _resolution_option_button.selected == -1:
+				return false
+	
+	if options_config.manage_window_mode:
+		if _window_mode_option_button.selected == -1:
+			return false
+	
+	if options_config.manage_screen:
+		if _screen_option_button.selected == -1:
+			return false
+	
+	return true
+
+
+# Signal connection
+func _on_custom_resolution_check_box_toggled(toggled_on: bool) -> void:
+	_set_using_custom_resolution(toggled_on)
+
+
+# Signal connection
+func _on_width_line_edit_text_changed(new_text: String) -> void:
+	_apply_button.disabled = not _validate()
+
+
+# Signal connection
+func _on_height_line_edit_text_changed(new_text: String) -> void:
+	_apply_button.disabled = not _validate()
+
+
+func _on_apply_button_pressed() -> void:
+	apply()

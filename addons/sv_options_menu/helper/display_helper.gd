@@ -3,10 +3,10 @@ extends Object
 ## Service for SV Options Menu management of display settings.
 ##
 ## Provides methods for changing resolution, fullscreen status etc.
-# TODO: Rename to OptionsDisplayHelper
 
 
-## Applies the resolution and window mode according to configuration in [OptionsConfig].
+## Applies the resolution and window mode according to configuration in [OptionsConfig]. Discards
+## resolution and/or window mode respectively if they aren't managed by SV Options Menu.
 static func apply_window_settings(window_mode: DisplayServer.WindowMode, resolution: Vector2i, options_config: OptionsConfig) -> void:
 	if options_config.manage_window_mode:
 		_apply_window_mode(window_mode)

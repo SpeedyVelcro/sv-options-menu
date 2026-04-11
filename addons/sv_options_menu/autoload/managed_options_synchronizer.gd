@@ -43,21 +43,35 @@ func apply() -> void:
 			push_error("Input device configured in options was missing or not a string or not a valid output device. Input device setting will not be applied.")
 	
 	if config.manage_resolution or config.manage_window_mode:
-		var resolution = options_with_resolution.get_option(config.resolution_option_path) if config.manage_resolution else Vector2i(0, 0)
+		var resolution_x = options_with_resolution.get_option(config.get_resolution_x_path()) if config.manage_resolution else 0
+		var resolution_y = options_with_resolution.get_option(config.get_resolution_y_path()) if config.manage_resolution else 0
 		var window_mode = options_with_window_mode.get_option(config.window_mode_option_path) if config.manage_window_mode else DisplayServer.WindowMode.WINDOW_MODE_WINDOWED
-		if resolution is not Vector2i:
-			push_error("Resolution configured in options was missing. Skipping applying window settings.")
+		
+		if resolution_x is float:
+			resolution_x = int(resolution_x)
+		if resolution_y is float:
+			resolution_y = int(resolution_y)
+		if window_mode is float:
+			window_mode = int(window_mode)
+		
+		if resolution_x is not int or resolution_y is not int:
+			push_error("Resolution configured in options was missing or malformed. Skipping applying window settings.")
 		elif window_mode is not DisplayServer.WindowMode:
-			push_error("Window mode configured in options was missing. Skipping applying window settings.")
+			push_error("Window mode configured in options was missing or malformed. Skipping applying window settings.")
 		else:
+			var resolution = Vector2i(resolution_x, resolution_y)
 			OptionsDisplayHelper.apply_window_settings(window_mode, resolution, config)
 	
 	if config.manage_screen:
 		var screen = options_with_screen.get_option(config.screen_option_path)
+		
+		if screen is float:
+			screen = int(screen)
+		
 		if screen is int:
 			OptionsDisplayHelper.apply_screen(screen)
 		else:
-			push_error("Screen configured in options was missing. Skipping applying screen.")
+			push_error("Screen configured in options was missing or incorrect. Skipping applying screen.")
 
 
 func _apply_volume_settings(volume_settings: Dictionary) -> void:
