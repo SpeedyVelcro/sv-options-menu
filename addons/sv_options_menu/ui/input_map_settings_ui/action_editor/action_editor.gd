@@ -69,3 +69,8 @@ func _on_add_button_pressed() -> void:
 	
 	_name_counter += 1
 	_add_button.get_parent().move_child(_add_button, -1)
+	
+	# We do not need to update the input map or GameOptions here. The input event
+	# is not set until the player presses a key (which the input event editor is
+	# now listening for), so updating the InputMap etc. is the responsibility of
+	# the InputEventEditor itself.
