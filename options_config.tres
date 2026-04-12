@@ -49,6 +49,29 @@ reference = SubResource("Resource_cqvsd")
 name = "UI"
 metadata/_custom_type_script = "uid://bgpntw2sb3xq1"
 
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_y0x8s"]
+axis_value = -1.0
+
+[sub_resource type="Resource" id="Resource_3sj0y"]
+script = ExtResource("3_yn0ri")
+locked_events = Array[InputEvent]([SubResource("InputEventJoypadMotion_y0x8s")])
+metadata/_custom_type_script = "uid://dt7kofv62xt16"
+
+[sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_yn0ri"]
+axis_value = 1.0
+
+[sub_resource type="Resource" id="Resource_7mlmw"]
+script = ExtResource("3_yn0ri")
+locked_events = Array[InputEvent]([SubResource("InputEventJoypadMotion_yn0ri")])
+metadata/_custom_type_script = "uid://dt7kofv62xt16"
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_khqdl"]
+
+[sub_resource type="Resource" id="Resource_ujstc"]
+script = ExtResource("3_yn0ri")
+locked_events = Array[InputEvent]([SubResource("InputEventJoypadButton_khqdl")])
+metadata/_custom_type_script = "uid://dt7kofv62xt16"
+
 [resource]
 script = ExtResource("4_24d8f")
 manage_resolution = true
@@ -56,3 +79,10 @@ manage_window_mode = true
 manage_screen = true
 manage_volume = true
 editable_buses = Array[Object]([SubResource("Resource_24d8f"), SubResource("Resource_dcy7j"), SubResource("Resource_sbmeu"), SubResource("Resource_r3xow")])
+manage_input_map = true
+editable_input_actions = Array[String](["move_left", "move_right", "jump", "pause"])
+locked_input_events = Dictionary[String, ExtResource("3_yn0ri")]({
+"jump": SubResource("Resource_ujstc"),
+"move_left": SubResource("Resource_3sj0y"),
+"move_right": SubResource("Resource_7mlmw")
+})
