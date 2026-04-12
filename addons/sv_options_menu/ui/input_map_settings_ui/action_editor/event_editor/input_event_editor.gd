@@ -56,6 +56,7 @@ var _listening: bool = false:
 func _ready() -> void:
 	# Because export setters were called before ready, they couldn't affect child nodes yet:
 	locked = locked
+	input_event = input_event
 	
 	_listening_visual_timer.timeout.connect(_update_listening_text)
 
@@ -121,11 +122,15 @@ func _update_text_to_input_event() -> void:
 	if input_event == null:
 		return
 	
+	if _binding_button == null:
+		return
+	
 	_binding_button.text = InputEventTextBuilder.build_text(input_event)
 
 
 func _update_listening_text() -> void:
-	if _binding_button == null: return
+	if _binding_button == null:
+		return
 	
 	match _binding_button.text:
 		".":
