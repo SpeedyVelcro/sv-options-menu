@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dtor8bby8jyrj"]
+
+[ext_resource type="PackedScene" uid="uid://cxtw6ljik6ras" path="res://addons/sv_options_menu/ui/input_map_settings_ui/action_editor/action_editor.tscn" id="1_id6g8"]
+
+[node name="InputMapSettingsUI" type="VBoxContainer" unique_id=1515047317]
+offset_right = 512.0
+offset_bottom = 432.0
+
+[node name="PlaceholderActionEditor" parent="." unique_id=1681253897 instance=ExtResource("1_id6g8")]
+layout_mode = 2
+
+[node name="PlaceholderActionEditor2" parent="." unique_id=2096546508 instance=ExtResource("1_id6g8")]
+layout_mode = 2
+
+[node name="PlaceholderActionEditor3" parent="." unique_id=596331410 instance=ExtResource("1_id6g8")]
+layout_mode = 2
+
+[node name="PlaceholderActionEditor4" parent="." unique_id=1353553386 instance=ExtResource("1_id6g8")]
+layout_mode = 2

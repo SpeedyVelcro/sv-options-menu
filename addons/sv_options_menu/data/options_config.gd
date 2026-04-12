@@ -176,10 +176,6 @@ enum DefaultResolutionHandling {
 ## [member manage_input_map] is set to [code]true[/code].
 @export var input_map_option_path: String = "controls/bindings"
 
-## True if input map should be synced to cloud instead of stored locally. Only
-## has an effect if [member manage_input_map] is set to [code]true[/code].
-@export var input_map_cloud_sync: bool = false
-
 ## Array of user-editable actions. Any action in this array will be configured
 ## by SV Options Menu.
 ##
