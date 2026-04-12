@@ -97,10 +97,17 @@ func _input(event: InputEvent) -> void:
 	else:
 		return
 	
-	var saved_event = event.duplicate_deep()
+	var saved_event: InputEvent = event.duplicate_deep() # Avoid interfering with anything else that intercepts this input (although unlikely since we mark it as handled)
+	
+	# Although not clearly documented, -1 seems to mean "any device".
+	saved_event.device = -1
 	
 	if saved_event is InputEventJoypadMotion:
-		saved_event.axis_value = JOYPAD_AXIS_THRESHOLD # We do not need to record the actual pressure
+		# axis_value doesn't seem to mean anything once it's in the input map
+		# (deadzone is controlled at the axis level). By my experimentation, it
+		# seems axis_value is set to 1.0 by default when entered into the input
+		# map via the editor, so it seems safe to do the same here.
+		saved_event.axis_value = 1.0
 	
 	if saved_event is InputEventFromWindow:
 		saved_event.window_id = 0 # Irrelevant info, just set to the default window
