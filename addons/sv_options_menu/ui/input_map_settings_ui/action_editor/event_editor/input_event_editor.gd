@@ -9,6 +9,10 @@ extends HBoxContainer
 ## deleting is the only way to unset the event)
 # TODO: modify input map on update (or should this be done further up the node tree?)
 
+## Action (see [InputMap]) which the [member input_event] is for.
+@export var action: String = ""
+## [InputEvent] to edit. This should reference the same InputEvent object that
+## is in the [InputMap], as it will be editing it.
 @export var input_event: InputEvent = null:
 	set(value):
 		input_event = value
@@ -161,5 +165,10 @@ func _on_binding_button_pressed() -> void:
 
 # Signal connection
 func _on_delete_button_pressed() -> void:
-	# TODO: Remove from input map and settings
+	if input_event == null:
+		queue_free()
+		return # Nothing to delete from input map or options as it is not set yet
+	
+	InputMap.action_erase_event(action, input_event)
+	# TODO: Remove from settings
 	queue_free()

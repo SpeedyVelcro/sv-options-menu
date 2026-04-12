@@ -47,6 +47,7 @@ func _populate_input_event_editors():
 		# TODO: DRY
 		var _input_event_editor: Control = _input_event_editor_scene.instantiate()
 		_input_event_editor.name = "InputEventEditor%d" % (_name_counter + 1) if _name_counter > 0 else "InputEventEditor"
+		_input_event_editor.action = action
 		_input_event_editor.input_event = event
 		if options_config.locked_input_events.has(action):
 			if options_config.locked_input_events[action].locked_events.any(func (e: InputEvent): return e.as_text() == event.as_text()):
@@ -62,6 +63,7 @@ func _on_add_button_pressed() -> void:
 	# TODO: DRY
 	var _input_event_editor: Control = _input_event_editor_scene.instantiate()
 	_input_event_editor.name = "InputEventEditor%d" % (_name_counter + 1) if _name_counter > 0 else "InputEventEditor"
+	_input_event_editor.action = action
 	_input_event_container.add_child(_input_event_editor)
 	_input_event_editor.listen()
 	
