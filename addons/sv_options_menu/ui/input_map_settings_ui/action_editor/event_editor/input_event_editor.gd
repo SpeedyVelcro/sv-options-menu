@@ -52,6 +52,10 @@ var _listening: bool = false:
 		return _listening
 
 
+## Start listening for input
+func listen() -> void:
+	_listening = true
+
 # Override
 func _ready() -> void:
 	# Because export setters were called before ready, they couldn't affect child nodes yet:
@@ -113,6 +117,8 @@ func _input(event: InputEvent) -> void:
 		saved_event.global_position = Vector2(0, 0)
 	
 	input_event = saved_event
+	# TODO: update input map and options
+	
 	_listening = false
 	
 	get_viewport().set_input_as_handled()
@@ -148,4 +154,5 @@ func _on_binding_button_pressed() -> void:
 
 # Signal connection
 func _on_delete_button_pressed() -> void:
+	# TODO: Remove from input map and settings
 	queue_free()

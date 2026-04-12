@@ -18,7 +18,7 @@ extends VBoxContainer
 @onready var _add_button: Button = $HFlowContainer/AddButton
 
 var _input_event_editor_scene = preload("res://addons/sv_options_menu/ui/input_map_settings_ui/action_editor/event_editor/input_event_editor.tscn") 
-
+var _name_counter: int
 
 # Override
 func _ready() -> void:
@@ -43,16 +43,27 @@ func _populate_input_event_editors():
 	
 	var events := InputMap.action_get_events(action)
 	
-	var i = 0
 	for event: InputEvent in events:
+		# TODO: DRY
 		var _input_event_editor: Control = _input_event_editor_scene.instantiate()
-		_input_event_editor.name = "InputEventEditor%d" % (i + 1) if i > 0 else "InputEventEditor"
+		_input_event_editor.name = "InputEventEditor%d" % (_name_counter + 1) if _name_counter > 0 else "InputEventEditor"
 		_input_event_editor.input_event = event
 		if options_config.locked_input_events.has(action):
 			if options_config.locked_input_events[action].locked_events.any(func (e: InputEvent): return e.as_text() == event.as_text()):
 				_input_event_editor.locked = true # TODO: the string comparison to check if we do this: is it robust enough?
 		_input_event_container.add_child(_input_event_editor)
 		
-		i += 1
+		_name_counter += 1
 	
+	_add_button.get_parent().move_child(_add_button, -1)
+
+
+func _on_add_button_pressed() -> void:
+	# TODO: DRY
+	var _input_event_editor: Control = _input_event_editor_scene.instantiate()
+	_input_event_editor.name = "InputEventEditor%d" % (_name_counter + 1) if _name_counter > 0 else "InputEventEditor"
+	_input_event_container.add_child(_input_event_editor)
+	_input_event_editor.listen()
+	
+	_name_counter += 1
 	_add_button.get_parent().move_child(_add_button, -1)
