@@ -127,8 +127,33 @@ func _input(event: InputEvent) -> void:
 		saved_event.position = Vector2(0, 0)
 		saved_event.global_position = Vector2(0, 0)
 	
+	var previous_event := input_event
 	input_event = saved_event
-	# TODO: update input map and options
+	
+	if previous_event == null:
+		# This editor must have just been created, in which case we should already
+		# be at the end of the list of bindings under this action, and we're just
+		# creating a new binding.
+		InputMap.action_add_event(action, input_event)
+	else:
+		# Ideally we want to keep the same order so as to not confuse the player
+		# when they return to the options menu. InputMap does not provide a way
+		# to manipulate the array directly, so we remove all events that come
+		# after, replace the old input event, and put them back again one by one.
+		var keep_input_event_stack: Array[InputEvent] = []
+		var input_events := InputMap.action_get_events(action)
+		for current_event: InputEvent in input_events:
+			if current_event == previous_event:
+				InputMap.action_erase_event(action, current_event)
+				InputMap.action_add_event(action, input_event)
+				break
+			keep_input_event_stack.push_back(current_event)
+			InputMap.action_erase_event(action, current_event)
+		for current_event: InputEvent in keep_input_event_stack:
+			InputMap.action_add_event(action, current_event)
+	
+	print(InputMap.action_get_events(action)) # debug
+	# TODO: update options
 	
 	_listening = false
 	
