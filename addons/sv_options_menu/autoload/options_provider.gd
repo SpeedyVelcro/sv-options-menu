@@ -9,8 +9,10 @@ extends Node
 var _default_options: GameOptions = GameOptions.new()
 var _local_options: GameOptions = GameOptions.new()
 var _cloud_options: GameOptions = GameOptions.new()
+# TODO: Support for multiple bindings profiles?
+var _bindings: GameOptions = GameOptions.new() # Stored separately for shareability of hotkey bindings
+var _bindings_cloud_backup: = GameOptions.new() # Will be used for "sync to cloud" button on controls settings
 
-# TODO: local and cloud options should be separate rather than fallbacks for eachother
 
 # Override
 func _ready():
@@ -23,6 +25,8 @@ func _ready():
 func set_default_options(options: GameOptions) -> void:
 	_local_options.set_fallback(options)
 	_cloud_options.set_fallback(options)
+	_bindings.set_fallback(options)
+	_bindings_cloud_backup.set_fallback(options)
 	_default_options = options
 
 
@@ -58,3 +62,43 @@ func set_cloud_options(options: GameOptions) -> void:
 ## options that are safe for cloud synchronization.
 func get_cloud_options() -> GameOptions:
 	return _cloud_options
+
+
+## Sets the bindings to the given [GameOptions]. This should be a GameOptions
+## with only the options path for storing the input map settings (see
+## [member OptionsConfig.input_map_option_path]), which is stored separately in
+## this case so as to save to a separate file (useful for players who want to
+## share hotkey bindings, as is common in e.g. RTS games).
+##
+## Using this method will set the fallback of the options to default options.
+func set_bindings(bindings: GameOptions) -> void:
+	bindings.set_fallback(_default_options)
+	_bindings = bindings
+
+
+## Returns the bindings, which is the [GameOptions] with only the options path for
+## storing the input map settings (see [member OptionsConfig.input_map_option_path]),
+## which is stored separately in this case so as to save to a separate file (useful
+## for players who want to share hotkey bindings, as is common in e.g. RTS games).
+func get_bindings() -> GameOptions:
+	return _bindings
+
+
+## Sets the cloud backup of bindings (see [method set_bindings]) to the given
+## [GameOptions]. These bindings are not to be used directly, but can be restored
+## by the player in the options menu.
+func set_bindings_cloud_backup(bindings: GameOptions) -> void:
+	_bindings_cloud_backup = bindings
+
+
+## Gets the cloud backup of bindings that was set with [method set_bindings_cloud_backup].
+## These are not to be used directly, but the getter is provided so they can be saved to
+## disk.
+func get_bindings_cloud_backup() -> GameOptions:
+	return _bindings_cloud_backup
+
+
+## Replaces the bindings served by [method get_bindings] with a copy of the
+## bindings set by [method set_bindings_cloud_backup].
+func restore_bindings_cloud_backup() -> void:
+	_bindings = _bindings_cloud_backup.duplicate_deep(Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL)

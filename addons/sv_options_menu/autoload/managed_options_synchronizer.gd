@@ -10,16 +10,17 @@ extends Node
 ## managed by SV Options Loader according to [OptionsConfig]. This is usually
 ## something done by the options_startup.gd singleton after loading options.
 func apply() -> void:
-	var config = OptionsConfigProvider.get_config()
-	var local_options = OptionsProvider.get_local_options()
-	var cloud_options = OptionsProvider.get_cloud_options()
+	var config := OptionsConfigProvider.get_config()
+	var local_options := OptionsProvider.get_local_options()
+	var cloud_options := OptionsProvider.get_cloud_options()
+	var bindings := OptionsProvider.get_bindings()
 	
-	var options_with_volume = cloud_options if config.volume_cloud_sync else local_options
-	var options_with_output_device = cloud_options if config.output_device_cloud_sync else local_options
-	var options_with_input_device = cloud_options if config.input_device_cloud_sync else local_options
-	var options_with_resolution = local_options
-	var options_with_window_mode = local_options
-	var options_with_screen = local_options
+	var options_with_volume := cloud_options if config.volume_cloud_sync else local_options
+	var options_with_output_device := cloud_options if config.output_device_cloud_sync else local_options
+	var options_with_input_device := cloud_options if config.input_device_cloud_sync else local_options
+	var options_with_resolution := local_options
+	var options_with_window_mode := local_options
+	var options_with_screen := local_options
 	
 	if config.manage_volume:
 		var volume_settings = options_with_volume.get_option(config.volume_option_path)
@@ -72,6 +73,13 @@ func apply() -> void:
 			OptionsDisplayHelper.apply_screen(screen)
 		else:
 			push_error("Screen configured in options was missing or incorrect. Skipping applying screen.")
+	
+	if config.manage_input_map:
+		var options_input_map = bindings.get_option(config.input_map_option_path)
+		if options_input_map == null or options_input_map is not Dictionary:
+			push_error("Bindings configured in options were missing or malformed. Skipping applying bindings.")
+		else:
+			InputMapOptionsTranslator.translate_options_to_input_map_actions(options_input_map, config.editable_input_actions, config.locked_input_events)
 
 
 func _apply_volume_settings(volume_settings: Dictionary) -> void:

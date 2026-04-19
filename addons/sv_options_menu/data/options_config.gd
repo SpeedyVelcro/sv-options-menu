@@ -38,6 +38,15 @@ enum DefaultResolutionHandling {
 ## be saved and loaded here instead of [member local_options_file_path].
 @export var cloud_options_file_path: String = "user://user-settings-cloud.json"
 
+## Path to store the user's hotkeys/input bindings. This is stored separately to
+## other settings, as it is common for players in some genres (e.g. RTS) to share
+## hotkey bindings.
+@export var bindings_file_path: String = "user://user-bindings.json"
+
+## Path to store the user's hotkeys/input bindings cloud backup, if they back up
+## their bindings to the cloud.
+@export var bindings_cloud_backup_file_path: String = "user://user-bindings-cloud-backup.json"
+
 ## Default options for use as a fallback that aren't configured elsewhere on
 ## this class. If this is null, then no custom default options will be used
 ## (only default options configured elsewhere on this class will be used).
@@ -164,11 +173,6 @@ enum DefaultResolutionHandling {
 ]
 
 @export_group("Controls")
-# TODO: There should probably be an enable_input_map_cloud_backup variable, then
-# you can set input map locally and back it up or restore it with a button. 
-# TODO: There should be an option to store input_map as a separate file, as
-# it is common to share hotkeys (especially for RTS games).
-
 ## Use SV Options Menu to configure input maps
 @export var manage_input_map: bool = false
 
@@ -225,6 +229,10 @@ func get_default_options() -> GameOptions:
 		default_options.set_option(get_resolution_x_path(), res.x)
 		default_options.set_option(get_resolution_y_path(), res.y)
 	
+	if manage_input_map:
+		var input_map_actions := InputMapOptionsTranslator.translate_input_map_actions_to_options(editable_input_actions, locked_input_events)
+		default_options.set_option(input_map_option_path, input_map_actions)
+	
 	return default_options
 
 
@@ -249,6 +257,11 @@ func get_resolution_x_path() -> String:
 ## Gets the paths to the resolution's height dimension
 func get_resolution_y_path() -> String:
 	return resolution_option_path + "/y"
+
+
+## Gets the path to the given input map action's configured input events
+func get_input_map_action_path(action: String) -> String:
+	return input_map_option_path + "/" + action
 
 
 func _audio_bus_to_volume_base_path(ref: AudioBusReference) -> Array:

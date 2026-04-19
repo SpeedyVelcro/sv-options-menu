@@ -75,6 +75,7 @@ func _exit_tree() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# TODO: Break up method
 	const JOYPAD_AXIS_THRESHOLD = 0.5
 	
 	if not _listening:
@@ -92,7 +93,7 @@ func _input(event: InputEvent) -> void:
 			_:
 				if event.is_released():
 					return
-	elif event is InputEventMouse or event is InputEventJoypadButton:
+	elif event is InputEventMouseButton or event is InputEventJoypadButton:
 		if event.is_released():
 			return
 	elif event is InputEventJoypadMotion:
@@ -120,9 +121,19 @@ func _input(event: InputEvent) -> void:
 		# If this event is a modifier on its own, we would only get to this point
 		# on release (see above guards). So change the binding to pressed.
 		saved_event.pressed = true
-		# TODO: Handle event.command_or_control_autoremap?
+		# Event mappings should only have one of keycode, physical_keycode, or
+		# unicode set according to Godot InputEventKey docs. We settle on keycode
+		# here, so set the others to none.
+		saved_event.physical_keycode = KEY_NONE
+		saved_event.unicode = KEY_NONE
+		# We do not set saved_event.command_or_control_autoremap to true because
+		# keys are rebindable anyway if mac users get annoyed.
+		# TODO: Maybe command_or_control_autoremap support should be an option in
+		# OptionsConfig though? So we can leave the decision to the developer
 	
-	if saved_event is InputEventMouse:
+	if saved_event is InputEventMouseButton:
+		saved_event.factor = 0
+		saved_event.double_click = false
 		# Don't record positions, we are just binding mouse buttons.
 		saved_event.position = Vector2(0, 0)
 		saved_event.global_position = Vector2(0, 0)
@@ -130,6 +141,7 @@ func _input(event: InputEvent) -> void:
 	var previous_event := input_event
 	input_event = saved_event
 	
+	# Update the input map
 	if previous_event == null:
 		# This editor must have just been created, in which case we should already
 		# be at the end of the list of bindings under this action, and we're just
@@ -143,21 +155,29 @@ func _input(event: InputEvent) -> void:
 		var keep_input_event_stack: Array[InputEvent] = []
 		var input_events := InputMap.action_get_events(action)
 		for current_event: InputEvent in input_events:
-			if current_event == previous_event:
+			if current_event == previous_event: # This comp by reference is fine because the InputEventEditor was set up with the actual InputEvent from the InputMap
 				InputMap.action_erase_event(action, current_event)
 				InputMap.action_add_event(action, input_event)
 				break
+			# TODO: ignore locked events, because those may not be at the beginning of the input map
 			keep_input_event_stack.push_back(current_event)
 			InputMap.action_erase_event(action, current_event)
 		for current_event: InputEvent in keep_input_event_stack:
 			InputMap.action_add_event(action, current_event)
 	
-	print(InputMap.action_get_events(action)) # debug
-	# TODO: update options
+	_update_options()
 	
 	_listening = false
 	
 	get_viewport().set_input_as_handled()
+
+
+func _update_options():
+	var options_config := OptionsConfigProvider.get_config()
+	var options := OptionsProvider.get_bindings()
+	var locks := options_config.locked_input_events[action] if options_config.locked_input_events.has(action) else InputEventLocks.new()
+	var options_action := InputMapOptionsTranslator.translate_action_to_options(action, locks)
+	options.set_option(options_config.get_input_map_action_path(action), options_action)
 
 
 func _update_text_to_input_event() -> void:
@@ -195,5 +215,7 @@ func _on_delete_button_pressed() -> void:
 		return # Nothing to delete from input map or options as it is not set yet
 	
 	InputMap.action_erase_event(action, input_event)
-	# TODO: Remove from settings
+	
+	_update_options()
+	
 	queue_free()

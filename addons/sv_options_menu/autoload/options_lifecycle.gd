@@ -20,6 +20,8 @@ func _ready():
 	OptionsProvider.set_default_options(options_config.get_default_options())
 	OptionsProvider.set_local_options(OptionsRepository.new(options_config.local_options_file_path).load_options())
 	OptionsProvider.set_cloud_options(OptionsRepository.new(options_config.cloud_options_file_path).load_options())
+	OptionsProvider.set_bindings(OptionsRepository.new(options_config.bindings_file_path).load_options())
+	OptionsProvider.set_bindings_cloud_backup(OptionsRepository.new(options_config.bindings_cloud_backup_file_path).load_options())
 	
 	ManagedOptionsSynchronizer.apply()
 

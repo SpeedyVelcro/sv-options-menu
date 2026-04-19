@@ -49,6 +49,13 @@ reference = SubResource("Resource_cqvsd")
 name = "UI"
 metadata/_custom_type_script = "uid://bgpntw2sb3xq1"
 
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_khqdl"]
+
+[sub_resource type="Resource" id="Resource_ujstc"]
+script = ExtResource("3_yn0ri")
+locked_events = Array[InputEvent]([SubResource("InputEventJoypadButton_khqdl")])
+metadata/_custom_type_script = "uid://dt7kofv62xt16"
+
 [sub_resource type="InputEventJoypadMotion" id="InputEventJoypadMotion_y0x8s"]
 axis_value = -1.0
 
@@ -63,13 +70,6 @@ axis_value = 1.0
 [sub_resource type="Resource" id="Resource_7mlmw"]
 script = ExtResource("3_yn0ri")
 locked_events = Array[InputEvent]([SubResource("InputEventJoypadMotion_yn0ri")])
-metadata/_custom_type_script = "uid://dt7kofv62xt16"
-
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_khqdl"]
-
-[sub_resource type="Resource" id="Resource_ujstc"]
-script = ExtResource("3_yn0ri")
-locked_events = Array[InputEvent]([SubResource("InputEventJoypadButton_khqdl")])
 metadata/_custom_type_script = "uid://dt7kofv62xt16"
 
 [resource]

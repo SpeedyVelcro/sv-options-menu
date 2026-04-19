@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c0cq11ew63r2v" path="res://example/ui/options_menu/options_menu.gd" id="1_lphwd"]
 [ext_resource type="PackedScene" uid="uid://i6168hsfkqt" path="res://addons/sv_options_menu/ui/volume_settings_ui/volume_settings_ui.tscn" id="1_yf2op"]
 [ext_resource type="PackedScene" uid="uid://cg3sk7atw1rs3" path="res://addons/sv_options_menu/ui/window_settings_ui/window_settings_ui.tscn" id="2_nvlck"]
+[ext_resource type="PackedScene" uid="uid://dtor8bby8jyrj" path="res://addons/sv_options_menu/ui/input_map_settings_ui/input_map_settings_ui.tscn" id="4_lrseo"]
 
 [node name="OptionsMenu" type="Control" unique_id=169916523]
 layout_mode = 3
@@ -41,10 +42,9 @@ text = "Options"
 [node name="TabContainer" type="TabContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1454605365]
 custom_minimum_size = Vector2(512, 382)
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
 [node name="Gameplay" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=164905565]
-visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
@@ -59,6 +59,7 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Video" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=377674327]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 1
@@ -116,6 +117,9 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+
+[node name="InputMapSettingsUI" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Controls/MarginContainer" unique_id=1515047317 instance=ExtResource("4_lrseo")]
+layout_mode = 2
 
 [node name="HFlowContainer" type="HFlowContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=583472324]
 layout_mode = 2

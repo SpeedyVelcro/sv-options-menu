@@ -22,6 +22,15 @@ func save_options(options: GameOptions) -> void:
 	_write_options_to_disk(options)
 
 
+## Saves options in the same way as [method save_options], but only if the
+## [GameOptions] has any options set.
+func save_options_if_any(options: GameOptions) -> void:
+	if not options.has_any_options_set():
+		return
+	
+	_write_options_to_disk(options)
+
+
 ## Loads the user-configured options from the file associated with this
 ## [OptionsRepository], and assigns the fallback, if any.
 func load_options() -> GameOptions:

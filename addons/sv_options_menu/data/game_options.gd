@@ -60,6 +60,12 @@ func get_option_by_keys(keys: Array, log_name := "") -> Variant:
 	return current_level
 
 
+## Returns true if any option has been set on this GameOptions. If nothing has
+## been set (i.e. it is empty, apart from any fallback) then returns false.
+func has_any_options_set() -> bool:
+	return not _options.keys().is_empty()
+
+
 func _dictionary_deep_merge(dict: Dictionary, fallback: Dictionary) -> void:
 	for key: Variant in dict.keys():
 		if dict[key] is Dictionary and fallback.has(key) and fallback[key] is Dictionary:
