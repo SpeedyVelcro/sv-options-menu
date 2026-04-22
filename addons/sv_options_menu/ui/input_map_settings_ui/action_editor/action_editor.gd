@@ -9,6 +9,7 @@ extends VBoxContainer
 @export var action: String = "":
 	set(value):
 		action = value
+		_update_label()
 		_populate_input_event_editors()
 	get:
 		return action
@@ -22,15 +23,27 @@ var _name_counter: int
 
 # Override
 func _ready() -> void:
+	_update_label()
 	_populate_input_event_editors()
 
 
-
-func _populate_input_event_editors():
+func _update_label():
+	if _label == null:
+		return # Not ready yet. Fail silently because this method will be re-run in _ready() anyway
+	
 	var options_config := OptionsConfigProvider.get_config()
 	
+	if options_config.input_action_labels.has(action):
+		_label.text = options_config.input_action_labels[action]
+	else:
+		_label.text = action.capitalize()
+
+
+func _populate_input_event_editors():
 	if _input_event_container == null:
 		return # Not ready yet. Fail silently because this method will be re-run in _ready() anyway
+	
+	var options_config := OptionsConfigProvider.get_config()
 	
 	for node: Node in _input_event_container.get_children().filter(func (n: Node): return n.name.contains("InputEventEditor")):
 		node.queue_free()

@@ -198,6 +198,13 @@ enum DefaultResolutionHandling {
 @export var locked_input_events: Dictionary[String, InputEventLocks]
 
 
+## Dictionary of human-readable labels for [InputMap] actions. If a label isn't
+## included for a particular input action but it's marked editable in
+## [member editable_input_actions], then the input map editor will display
+## it using [method String.capitalize] instead.
+@export var input_action_labels: Dictionary[String, String]
+
+
 ## Gets the default options, which include all configured defaults among the
 ## properties of this object, as well as any bespoke defaults configured in
 ## [member custom_default_options].
