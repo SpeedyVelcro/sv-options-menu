@@ -98,6 +98,17 @@ func _input(event: InputEvent) -> void:
 			return
 	elif event is InputEventJoypadMotion:
 		if event.axis_value < JOYPAD_AXIS_THRESHOLD:
+			# Must meet minimum threshold, otherwise the slightest accidental
+			# nudge of the thumbstick would bind it
+			return
+	elif event is InputEventJoypadButton:
+		if event.button_index == JOY_BUTTON_GUIDE:
+			# Usually the guide button functions as the power button, or has
+			# some meta function in the OS, so we shouldn't allow it to be
+			# bindable to avoid confusion.
+			return
+		if event.button_index == JOY_BUTTON_MISC1:
+			# Usually this has some meta function e.g. Xbox share, Switch capture
 			return
 	else:
 		return

@@ -28,6 +28,7 @@ func _ready() -> void:
 
 
 func _update_label():
+	# TODO: Should support controller glyphs
 	if _label == null:
 		return # Not ready yet. Fail silently because this method will be re-run in _ready() anyway
 	
