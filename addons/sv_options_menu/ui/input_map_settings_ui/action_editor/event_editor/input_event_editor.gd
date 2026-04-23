@@ -32,6 +32,12 @@ extends HBoxContainer
 			_delete_button.visible = not locked
 	get:
 		return locked
+@export var delete_icon: Texture2D:
+	set(value):
+		delete_icon = value
+		_update_delete_button_icon()
+	get:
+		return delete_icon
 
 @onready var _binding_button: Button = $BindingButton
 @onready var _delete_button: Button = $DeleteButton
@@ -65,6 +71,7 @@ func _ready() -> void:
 	# Because export setters were called before ready, they couldn't affect child nodes yet:
 	locked = locked
 	input_event = input_event
+	delete_icon = delete_icon
 	
 	_listening_visual_timer.timeout.connect(_update_listening_text)
 
@@ -212,6 +219,13 @@ func _update_listening_text() -> void:
 			_binding_button.text = "..."
 		"...", _:
 			_binding_button.text = "."
+
+
+func _update_delete_button_icon() -> void:
+	if _delete_button == null:
+		return
+	
+	_delete_button.icon = delete_icon
 
 
 # Signal connection
