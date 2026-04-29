@@ -1,7 +1,79 @@
 [gd_scene format=3 uid="uid://dts8hfrtxhr2j"]
 
+[ext_resource type="Script" uid="uid://q556kuuqjbtq" path="res://addons/sv_options_menu/ui/ui_scaling_sub_viewport/ui_scaling_sub_viewport.gd" id="1_hwn3c"]
 [ext_resource type="PackedScene" uid="uid://bnp31prs5pode" path="res://example/ui/main_menu/main_menu.tscn" id="1_iyjup"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_iyjup"]
+font_size = 12
 
 [node name="Main" type="Node" unique_id=1381406016]
 
-[node name="MainMenu" parent="." unique_id=1082234827 instance=ExtResource("1_iyjup")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1970973569]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UIScalingSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=147225308]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+size_2d_override = Vector2i(1152, 648)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+script = ExtResource("1_hwn3c")
+metadata/_custom_type_script = "uid://q556kuuqjbtq"
+
+[node name="MainMenu" parent="SubViewportContainer/UIScalingSubViewport" unique_id=1082234827 instance=ExtResource("1_iyjup")]
+
+[node name="TestPanel" type="Panel" parent="SubViewportContainer/UIScalingSubViewport" unique_id=1795901633]
+custom_minimum_size = Vector2(40, 40)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TestPanel2" type="Panel" parent="SubViewportContainer/UIScalingSubViewport" unique_id=1863479818]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="TestPanel3" type="Panel" parent="SubViewportContainer/UIScalingSubViewport" unique_id=1041028808]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="TestPanel4" type="Panel" parent="SubViewportContainer/UIScalingSubViewport" unique_id=822422538]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="SubViewportContainer/UIScalingSubViewport" unique_id=323140949]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -223.5
+offset_top = -37.0
+offset_right = 223.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "If UI scaling is working correctly, four squares should be touching the corners
+of the screen, and they should be regular shapes (all sides equal)"
+label_settings = SubResource("LabelSettings_iyjup")
+horizontal_alignment = 1

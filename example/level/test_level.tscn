@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://bddirmabykg6n" path="res://example/tile/brick/brick_tile_set.tres" id="1_hnnv4"]
 [ext_resource type="PackedScene" uid="uid://lpugk6u5vh4j" path="res://example/entity/player/player.tscn" id="2_61ofl"]
 [ext_resource type="PackedScene" uid="uid://cllx2j7ghh28" path="res://example/ui/pause_menu/pause_menu.tscn" id="3_3ukif"]
+[ext_resource type="Script" uid="uid://q556kuuqjbtq" path="res://addons/sv_options_menu/ui/ui_scaling_sub_viewport/ui_scaling_sub_viewport.gd" id="3_s2gnh"]
 [ext_resource type="AudioStream" uid="uid://dnoyx1pl0twk0" path="res://example/music/UnderwaterWaltz.ogg" id="4_sog6t"]
 
 [node name="TestLevel" type="Node2D" unique_id=1602429688]
@@ -16,7 +17,21 @@ position = Vector2(496, 400)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=767900378]
 
-[node name="PauseMenu" parent="CanvasLayer" unique_id=72643200 instance=ExtResource("3_3ukif")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer" unique_id=574689087]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UIScalingSubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=1355529192]
+transparent_bg = true
+size = Vector2i(1152, 648)
+script = ExtResource("3_s2gnh")
+metadata/_custom_type_script = "uid://q556kuuqjbtq"
+
+[node name="PauseMenu" parent="CanvasLayer/SubViewportContainer/UIScalingSubViewport" unique_id=72643200 instance=ExtResource("3_3ukif")]
 visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=174673835]

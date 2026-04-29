@@ -32,34 +32,24 @@ static func apply_window_settings(window_mode: DisplayServer.WindowMode, resolut
 	if affects_window_size:
 		_get_window().size = resolution
 		_get_window().move_to_center()
+	
 	if affects_content_size:
 		_get_window().content_scale_size = resolution
-
-
-## Infers the current resolution from the properties of the main window, by the
-## properties that resolution is supposed to affect as determined by [OptionsConfig].
-## If it is impossible to infer (e.g. because you forgot to set resolution to affect
-## anything at all) then [property OptionsConfig.default_resolution] will be returned.
-static func get_current_resolution(options_config: OptionsConfig) -> Vector2i:
-	var res := _get_window().size
-	
-	var use_content_size := false
-	var use_window_size := false
-	
-	match DisplayServer.window_get_mode():
-		DisplayServer.WindowMode.WINDOW_MODE_WINDOWED, DisplayServer.WindowMode.WINDOW_MODE_MINIMIZED, DisplayServer.WindowMode.WINDOW_MODE_MAXIMIZED:
-			use_window_size = options_config.resolution_affects_windowed_window_size
-			use_content_size = options_config.resolution_affects_windowed_content_size
-		DisplayServer.WindowMode.WINDOW_MODE_FULLSCREEN, DisplayServer.WindowMode.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-			use_window_size = options_config.resolution_affects_fullscreen_window_size
-			use_content_size = options_config.resolution_affects_fullscreen_content_size
-	
-	if use_window_size:
-		return _get_window().size
-	elif use_content_size:
-		return _get_window().content_scale_size
 	else:
-		return options_config.calculate_default_resolution(DisplayServer.SCREEN_PRIMARY)
+		_get_window().content_scale_size = Vector2i(0, 0)
+
+
+## Infers the current resolution from the properties of the main window. This is
+## usually [member Window.size], unless [member Window.content_scale_size] has
+## been set.
+static func get_current_resolution(options_config: OptionsConfig) -> Vector2i:
+	var window := _get_window()
+	var using_content_size := window.content_scale_size.x > 0 or window.content_scale_size.y > 0
+	
+	if using_content_size:
+		return window.content_scale_size
+	
+	return window.size
 
 
 ## Applies screen

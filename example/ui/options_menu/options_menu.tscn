@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cg3sk7atw1rs3" path="res://addons/sv_options_menu/ui/window_settings_ui/window_settings_ui.tscn" id="2_nvlck"]
 [ext_resource type="PackedScene" uid="uid://dtor8bby8jyrj" path="res://addons/sv_options_menu/ui/input_map_settings_ui/input_map_settings_ui.tscn" id="4_lrseo"]
 
-[node name="OptionsMenu" type="Control" unique_id=169916523]
+[node name="OptionsMenu" type="Control" unique_id=1049107416]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

@@ -7,9 +7,23 @@ extends Resource
 ## is a dictionary of values and, possibly, nested dictionaries.
 # TODO: has_option and has_option_by_keys methods
 # TODO: unset_option and unset_options_by_keys methods
+# TODO: propagate option_modified signals from fallback
 
 var _options: Dictionary
 var _fallback: GameOptions = null
+
+## Emitted when an option is set using either [method set_option] or
+## [method set_option_by_keys]. Includes the path that was changed. This is
+## only emitted for the exact path that was changed - it is not propagated up
+## or down - so you may want to filter paths to respond to using
+## String.begins_with if you want to listen to an entire options category.
+signal option_modified_by_keys(keys: Array[String], new_value: Variant)
+
+## As [signal option_modofied_by_keys], but only emitted when the option was
+## modified using [method set_option], or alternatively if it was set using
+## [method set_option_by_keys] but using only string keys. If the keys include
+## other data types, then only [signal option_modified_by_keys] will be emitted.
+signal option_modified(path: String, new_value: Variant)
 
 
 # Override
@@ -112,6 +126,9 @@ func set_option_by_keys(keys: Array, value: Variant, log_name := "") -> void:
 		current_path += "/"
 	
 	current_level[keys.back()] = value
+	option_modified_by_keys.emit(keys, value)
+	if keys.all(func (key): return key is String):
+		option_modified.emit(current_path, value)
 
 
 ## Sets the fallback to the given [GameOptions]. This will be used to retrieve
