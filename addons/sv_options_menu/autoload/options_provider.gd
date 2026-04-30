@@ -14,6 +14,13 @@ var _bindings: GameOptions = GameOptions.new() # Stored separately for shareabil
 var _bindings_cloud_backup: = GameOptions.new() # Will be used for "sync to cloud" button on controls settings
 
 
+signal default_options_changed(new_value: GameOptions)
+signal local_options_changed(new_value: GameOptions)
+signal cloud_options_changed(new_value: GameOptions)
+signal bindings_changed(new_value: GameOptions)
+signal bindings_cloud_backup_changed(new_value: GameOptions)
+
+
 # Override
 func _ready():
 	_local_options.set_fallback(_default_options)
@@ -28,6 +35,7 @@ func set_default_options(options: GameOptions) -> void:
 	_bindings.set_fallback(options)
 	_bindings_cloud_backup.set_fallback(options)
 	_default_options = options
+	default_options_changed.emit(options)
 
 
 ## Gets a deep duplicate of the default [GameOptions]. This is a duplicate
@@ -42,6 +50,7 @@ func get_default_options(options: GameOptions) -> void:
 func set_local_options(options: GameOptions) -> void:
 	options.set_fallback(_default_options)
 	_local_options = options
+	local_options_changed.emit(options)
 
 
 ## Returns the local [GameOptions]. This either returns the options set using
@@ -56,6 +65,7 @@ func get_local_options() -> GameOptions:
 func set_cloud_options(options: GameOptions) -> void:
 	options.set_fallback(_default_options)
 	_cloud_options = options
+	cloud_options_changed.emit(options)
 
 
 ## Returns the cloud options, which is the [GameOptions] object that contains
@@ -74,6 +84,7 @@ func get_cloud_options() -> GameOptions:
 func set_bindings(bindings: GameOptions) -> void:
 	bindings.set_fallback(_default_options)
 	_bindings = bindings
+	bindings_changed.emit(bindings)
 
 
 ## Returns the bindings, which is the [GameOptions] with only the options path for
@@ -89,6 +100,7 @@ func get_bindings() -> GameOptions:
 ## by the player in the options menu.
 func set_bindings_cloud_backup(bindings: GameOptions) -> void:
 	_bindings_cloud_backup = bindings
+	bindings_cloud_backup_changed.emit(bindings)
 
 
 ## Gets the cloud backup of bindings that was set with [method set_bindings_cloud_backup].
@@ -102,3 +114,4 @@ func get_bindings_cloud_backup() -> GameOptions:
 ## bindings set by [method set_bindings_cloud_backup].
 func restore_bindings_cloud_backup() -> void:
 	_bindings = _bindings_cloud_backup.duplicate_deep(Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL)
+	bindings_changed.emit(_bindings)

@@ -12,7 +12,8 @@ static func calculate_default_ui_scale(options_config: OptionsConfig) -> float:
 	if options_config.default_ui_scale > 0.0:
 		return options_config.default_ui_scale
 	
-	return calculate_ratio_to_reference_resolution(options_config)
+	var ratio := calculate_ratio_to_reference_resolution(options_config)
+	return snap_to_valid_ui_scale(ratio, options_config)
 
 
 ## Snaps the given UI scale according to options in options_config. Usually called
@@ -20,12 +21,9 @@ static func calculate_default_ui_scale(options_config: OptionsConfig) -> float:
 ## first to make sure you don't pointlessly override custom UI scales that are
 ## still within bounds.
 static func snap_to_valid_ui_scale(ui_scale: float, options_config: OptionsConfig) -> float:
-	var cap := calculate_ui_scale_cap(options_config)
-	
 	var snap_scales: Array[float] = options_config.ui_scaling_snap_values.duplicate_deep()
 	snap_scales.sort()
-	snap_scales = snap_scales.filter(func (x: float): return x >= options_config.ui_minimum_scale)
-	snap_scales = snap_scales.filter(func (x: float): return x <= cap)
+	snap_scales = snap_scales.filter(func (s: float): return is_ui_scale_in_bounds(s, options_config))
 	
 	if snap_scales.is_empty():
 		return ui_scale
@@ -89,7 +87,7 @@ static func calculate_ui_scale_cap(options_config: OptionsConfig) -> float:
 ## (see [member OptionsConfig.ui_scaling_reference_resolution]). This is done
 ## on the smallest dimension of the current resolution.
 static func calculate_ratio_to_reference_resolution(options_config: OptionsConfig) -> float:
-	var resolution := OptionsDisplayHelper.get_current_resolution(options_config)
+	var resolution := OptionsDisplayHelper.get_current_resolution()
 	var smallest_dimension_is_y := resolution.y <= resolution.x
 	
 	var reference_resolution := options_config.get_reference_resolution()
@@ -102,7 +100,3 @@ static func calculate_ratio_to_reference_resolution(options_config: OptionsConfi
 		ratio = float(resolution.x) / float(reference_resolution.x)
 	
 	return ratio
-
-
-static func _get_current_resolution() -> Window:
-	return (Engine.get_main_loop() as SceneTree).root.get_window()

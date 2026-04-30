@@ -167,7 +167,7 @@ func _select_current_resolution() -> void:
 	_custom_resolution_check_box.set_pressed_no_signal(false)
 	_set_using_custom_resolution(false)
 	
-	var res = OptionsDisplayHelper.get_current_resolution(OptionsConfigProvider.get_config())
+	var res = OptionsDisplayHelper.get_current_resolution()
 	
 	_resolution_width_line_edit.text = str(res.x)
 	_resolution_height_line_edit.text = str(res.y)

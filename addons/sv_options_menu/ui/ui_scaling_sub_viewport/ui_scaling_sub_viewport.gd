@@ -24,7 +24,7 @@ extends SubViewport
 ## NOTE: Since you will probably use this for user interfaces, it is likely you will
 ## want to set [member transparent_bg] to true, so that the game displays behind
 ## the UI.
-# TODO: bool to optionally decide whether to set size to resolution
+# TODO: bool to optionally decide whether to set size to resolution (allows scaling for smaller non-fullscreen subviewports)
 # TODO: check if [member oversampling] and [member oversampling_override] are worth changing
 
 ## Scale factor to scale UI by. Immediately adjusts [member size] and

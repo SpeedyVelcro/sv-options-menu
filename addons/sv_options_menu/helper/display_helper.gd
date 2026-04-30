@@ -42,7 +42,7 @@ static func apply_window_settings(window_mode: DisplayServer.WindowMode, resolut
 ## Infers the current resolution from the properties of the main window. This is
 ## usually [member Window.size], unless [member Window.content_scale_size] has
 ## been set.
-static func get_current_resolution(options_config: OptionsConfig) -> Vector2i:
+static func get_current_resolution() -> Vector2i:
 	var window := _get_window()
 	var using_content_size := window.content_scale_size.x > 0 or window.content_scale_size.y > 0
 	

@@ -128,7 +128,7 @@ func set_option_by_keys(keys: Array, value: Variant, log_name := "") -> void:
 	current_level[keys.back()] = value
 	option_modified_by_keys.emit(keys, value)
 	if keys.all(func (key): return key is String):
-		option_modified.emit(current_path, value)
+		option_modified.emit(current_path + str(keys.back()), value)
 
 
 ## Sets the fallback to the given [GameOptions]. This will be used to retrieve

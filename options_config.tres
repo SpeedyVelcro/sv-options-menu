@@ -80,6 +80,7 @@ manage_screen = true
 manage_volume = true
 editable_buses = Array[Object]([SubResource("Resource_24d8f"), SubResource("Resource_dcy7j"), SubResource("Resource_sbmeu"), SubResource("Resource_r3xow")])
 manage_ui_scaling = true
+ui_scaling_auto_cap_leeway = 0.2
 manage_input_map = true
 editable_input_actions = Array[String](["move_left", "move_right", "jump", "pause"])
 locked_input_events = Dictionary[String, ExtResource("3_yn0ri")]({

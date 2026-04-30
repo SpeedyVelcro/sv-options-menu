@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c0cq11ew63r2v" path="res://example/ui/options_menu/options_menu.gd" id="1_lphwd"]
 [ext_resource type="PackedScene" uid="uid://i6168hsfkqt" path="res://addons/sv_options_menu/ui/volume_settings_ui/volume_settings_ui.tscn" id="1_yf2op"]
 [ext_resource type="PackedScene" uid="uid://cg3sk7atw1rs3" path="res://addons/sv_options_menu/ui/window_settings_ui/window_settings_ui.tscn" id="2_nvlck"]
+[ext_resource type="PackedScene" uid="uid://pkttw81dcu53" path="res://addons/sv_options_menu/ui/ui_scaling_settings_ui/ui_scaling_settings_ui.tscn" id="3_4ipqx"]
 [ext_resource type="PackedScene" uid="uid://dtor8bby8jyrj" path="res://addons/sv_options_menu/ui/input_map_settings_ui/input_map_settings_ui.tscn" id="4_lrseo"]
 
 [node name="OptionsMenu" type="Control" unique_id=1049107416]
@@ -83,6 +84,19 @@ historical_standards_selectable = true
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer" unique_id=901810350]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer" unique_id=2068153372]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer" unique_id=208017507]
+layout_mode = 2
+text = "UI Scale"
+
+[node name="UIScalingSettingsUI" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1158959838 instance=ExtResource("3_4ipqx")]
+layout_mode = 2
+size_flags_horizontal = 3
+allow_custom_value = true
+dropdown_increments = 0.25
 
 [node name="Audio" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=923351543]
 visible = false
