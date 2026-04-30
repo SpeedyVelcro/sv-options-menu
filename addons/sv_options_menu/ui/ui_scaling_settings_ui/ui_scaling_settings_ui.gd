@@ -5,6 +5,7 @@ extends Control
 ## set with [member OptionsConfig.manage_ui_scaling].
 # TODO: break out the slider/line-edit/menu-button combo as a generic control as it seems quite useful.
 # TODO: Disconnect signal on destruction
+# TODO: Allow enforcing cap and minimum on custom scale
 
 ## Use custom min and max values by setting [member min_value] and [member max_value].
 ## If this is false, the min and max values are derived from current resolution
