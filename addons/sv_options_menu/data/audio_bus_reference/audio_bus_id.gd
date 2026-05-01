@@ -12,6 +12,9 @@ extends AudioBusReference
 
 # Constructor
 func _init(bus_id: int = 0): # User should always provide an id but resource loading seems to error out if you can't use the empty constructor
+	# _init() takes place before @export initialisation, so this will be overwritten
+	# when deserialized from .tres. This is fine - it is desired behaviour that allows
+	# configuring through the editor.
 	self.bus_id = bus_id
 
 
