@@ -26,6 +26,9 @@ UIScaleLimiter="*uid://bvyix0sadk4ni"
 
 [display]
 
+window/size/resizable=false
+window/size/minimize_disabled=true
+window/size/maximize_disabled=true
 window/stretch/mode="viewport"
 
 [editor_plugins]
