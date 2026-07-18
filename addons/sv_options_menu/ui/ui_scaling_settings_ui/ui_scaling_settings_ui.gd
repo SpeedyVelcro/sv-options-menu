@@ -3,7 +3,7 @@ extends Control
 ##
 ## UI for editing UI scaling, provided that it is managed by SV Options Menu as
 ## set with [member OptionsConfig.manage_ui_scaling].
-# TODO: break out the slider/line-edit/menu-button combo as a generic control as it seems quite useful.
+# TODO: Refactor to use combo_slider.tscn, as this scene currently duplicates a lot of its' functionality.
 # TODO: Disconnect signal on destruction
 # TODO: Allow enforcing cap and minimum on custom scale
 
