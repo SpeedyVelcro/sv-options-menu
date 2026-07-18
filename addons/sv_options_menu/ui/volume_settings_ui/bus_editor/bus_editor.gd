@@ -23,6 +23,12 @@ var _level: int:
 
 # Override
 func _ready() -> void:
+	# Ensure that label does not shrink when volume level is lower than 100,
+	# so that the sliders don't go out of alignment.
+	_level_label.text = "100"
+	_level_label.update_minimum_size()
+	_level_label.custom_minimum_size.x = _level_label.get_minimum_size().x
+	
 	if bus == null:
 		push_warning("Audio bus must be set for bus editor to work properly")
 		return
