@@ -11,12 +11,26 @@ extends Node
 ## others) by sending [code]NOTIFICATION_WM_CLOSE_REQUEST[/code] beforehand
 ## by calling [code]get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)[/code]
 
+var _started := false
+
 
 # Override
 func _ready():
 	var options_config = _load_options_config()
-	
 	OptionsConfigProvider.set_config(options_config)
+	
+	if options_config.auto_start:
+		start_up()
+
+
+# TODO: doc comment
+func start_up() -> void:
+	if _started:
+		push_error("Cannot call start_up twice.")
+		return
+	
+	var options_config := OptionsConfigProvider.get_config()
+	
 	OptionsProvider.set_default_options(options_config.get_default_options())
 	OptionsProvider.set_local_options(OptionsRepository.new(options_config.local_options_file_path).load_options())
 	OptionsProvider.set_cloud_options(OptionsRepository.new(options_config.cloud_options_file_path).load_options())
@@ -24,6 +38,8 @@ func _ready():
 	OptionsProvider.set_bindings_cloud_backup(OptionsRepository.new(options_config.bindings_cloud_backup_file_path).load_options())
 	
 	ManagedOptionsSynchronizer.apply()
+	
+	_started = true
 
 
 # Override

@@ -52,6 +52,16 @@ enum DefaultResolutionHandling {
 ## (only default options configured elsewhere on this class will be used).
 @export var custom_default_options: GameOptions
 
+## When [code]true[/code], the SV Options Menu addon will automatically set up
+## all its singletons from the [OptionsConfig] that was loaded.
+##
+## If you set this to [code]false[/code], can delay application of managed settings,
+## and also give you a moment to modify OptionsConfig programmatically if you
+## so wish. The OptionsConfig will be loaded into [OptionsConfigProvider] for
+## you to modify or replace, but the rest of startup will be delayed. Call
+## [method OptionsLifecycle.start_up] to finish start up when you are ready.
+@export var auto_start := true
+
 @export_group("Display")
 ## Master setting for whether SV Options Menu manages resolution. See the other
 ## "managed" variables for what exactly the configured resolution affects
