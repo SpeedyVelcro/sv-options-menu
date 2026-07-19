@@ -8,6 +8,11 @@ extends Control
 ## suggest values, and (optionally) you want to make the fine-grained control of
 ## custom text input available.
 ##
+## By setting [member allow_custom_value] to [code]true[/code] and [member hide_slider]
+## to [code]false[/code], you can use this purely as a
+## [url=https://en.wikipedia.org/wiki/Combo_box]combo box[/url] instead and
+## completely ignore the slider functionality.
+##
 ## Note that although this is included in the SV Options Menu addon, this
 ## specific scene has no specific interoperability with, or dependency on, any
 ## other part of the addon. It is a general purpose control that you can put
@@ -38,14 +43,26 @@ extends Control
 		_update_snap()
 	get:
 		return snap
-## If true, the player will be able to type in custom values.
-@export var allow_custom_value: bool = false:
+## Allows the player will be able to type in custom values. Set this to
+## [code]true[/code] to enable [url=https://en.wikipedia.org/wiki/Combo_box]combo box[/url]
+## functionality.
+@export var allow_custom_value := false:
 	set(value):
 		allow_custom_value = value
 		_update_line_edit_visibility()
 		_update_value_label_visibility()
 	get:
 		return allow_custom_value
+## Hides the slider, leaving only the dropdown menu. Set this to [code]true[/code]
+## and [member allow_custom_value] to [code]true[/code] to turn this scene into
+## a pure [url=https://en.wikipedia.org/wiki/Combo_box]combo box[/url] with no
+## slider.
+@export var hide_slider := false:
+	set(value):
+		hide_slider = value
+		_update_slider_visibility()
+	get:
+		return hide_slider
 ## Increments to include in the dropdown. For example, if this is 0.5 and [member min_value] is 1.0, the dropdown
 ## will include values of 1.0, 1.5, 2.0, 2.5, and so on up to the max value. Set
 ## to [code]0.0[/code] if you don't want to auto-generate values. In this case,
@@ -89,6 +106,7 @@ func _ready() -> void:
 	update_arrow_icon()
 	_update_line_edit_visibility()
 	_update_value_label_visibility()
+	_update_slider_visibility()
 	
 	_update_slider()
 	_populate_menu_button()
@@ -197,6 +215,13 @@ func _update_value_label_visibility() -> void:
 		return # Not ready yet
 	
 	_value_label.visible = not allow_custom_value
+
+
+func _update_slider_visibility() -> void:
+	if _slider == null:
+		return # Not ready yet
+	
+	_slider.visible = not hide_slider
 
 
 # Override
