@@ -1,6 +1,7 @@
 # SV Options Menu
 Utilities for setting up an options menu in your Godot game. Currently
-a work in progress.
+usable but still in an unpolished state, so you might need to wrangle
+it to fit into your project.
 
 ![Screenshot of some controls from SV Options Menu](./readme-screenshot.png)
 
