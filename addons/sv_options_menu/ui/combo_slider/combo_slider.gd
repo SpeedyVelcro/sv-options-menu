@@ -64,10 +64,11 @@ extends Control
 ## [max_value], otherwise you might get some funky results at runtime.
 @export var value: float = 1.0:
 	set(to):
-		value = clampf(snappedf(to, snap), min_value, max_value)
+		_internal_value = clampf(snappedf(to, snap), min_value, max_value)
 		_on_value_changed()
+		value_changed.emit(value)
 	get:
-		return value
+		return _internal_value
 
 ## Emitted when the [member value] is changed, either by user input or setting
 ## it directly.
@@ -77,6 +78,8 @@ signal value_changed(to: float)
 @onready var _menu_button: MenuButton = $Control/MenuButton
 @onready var _line_edit: LineEdit = $Control/LineEdit
 @onready var _value_label: Label = $Control/ValueLabel
+
+var _internal_value: float = 1.0
 
 
 # Override
@@ -104,14 +107,17 @@ func update_arrow_icon() -> void:
 	_menu_button.icon = get_theme_icon("arrow", "OptionButton")
 
 
+## Set [member value] to the given value without emitting [signal value_changed].
+func set_value_no_signal(to: float) -> void:
+	_internal_value = to
+	_on_value_changed()
+
+
 # NOT a signal connection - rather called directly from the setter.
 func _on_value_changed() -> void:
 	_slider.set_value_no_signal(value) # Slider node auto-clamps value
 	_line_edit.text = _format_float(value)
 	_value_label.text = _format_float(value)
-	
-	
-	value_changed.emit(value)
 
 
 func _format_float(value: float) -> String:
