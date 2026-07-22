@@ -59,7 +59,7 @@ jobs:
             res://test
           version: "v6.1.3"
           publish-report: false # true causes failure due to read-only permission
-  archive-addon:
+  package-addon:
     name: Package Addon
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +67,7 @@ jobs:
         uses: actions/checkout@v7
       - name: Inject Version Number
         run: |
-          sed -i 's/\(version="\).*\("\)/\1${{ github.ref_name }}\2/' plugin.cfg
+          sed -i 's/\(version="\).*\("\)/\1${{ github.ref_name }}\2/' addons/sv_options_menu/plugin.cfg
       - name: Archive Addon
         run: |
           mkdir zip_root
