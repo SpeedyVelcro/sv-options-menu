@@ -6,7 +6,7 @@ it to fit into your project.
 ![Screenshot of some controls from SV Options Menu](./readme-screenshot.png)
 
 ## Installation
-- SV Options Menu requires [Godot 4.6](https://godotengine.org/download/4.x)
+- SV Options Menu requires [Godot 4.7](https://godotengine.org/download/4.x)
 - Clone the repository, then copy the `addons/sv_options_menu` folder
   into the addons folder of your own project.
 - Activate the plugin in Project Settings.
