@@ -7,8 +7,10 @@ it to fit into your project.
 
 ## Installation
 - SV Options Menu requires [Godot 4.7](https://godotengine.org/download/4.x)
-- Clone the repository, then copy the `addons/sv_options_menu` folder
-  into the addons folder of your own project.
+- Download the archive `sv-options-menu-addon-vX.X.X.zip` from the
+  [latest release page](https://github.com/SpeedyVelcro/sv-options-menu/releases/latest).
+- Extract the archive into the root directory of your project (i.e. the
+  same folder as your `project.godot` file).
 - Activate the plugin in Project Settings.
 
 ## Usage
