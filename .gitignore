@@ -4,3 +4,7 @@
 
 # gdUnit4
 reports/*
+
+# Build files
+build/*/*.pck
+build/*/*.x86_64
