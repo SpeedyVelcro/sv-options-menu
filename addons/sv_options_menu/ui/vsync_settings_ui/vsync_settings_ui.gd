@@ -59,26 +59,57 @@ extends OptionButton
 
 
 var _readied := false
+var _item_modes: Array[DisplayServer.VSyncMode] = []
 
 
 # Override
 func _ready() -> void:
 	_readied = true
 	_populate_items()
+	
+	_select_current_mode()
 
 
 func _populate_items() -> void:
 	if not _readied:
 		return
 	
-	pass # TODO
+	clear()
+	_item_modes = []
+	
+	var modes := _get_allowed_modes()
+	
+	for mode in modes:
+		_add_mode_item(mode)
+
+
+func _add_mode_item(mode: DisplayServer.VSyncMode) -> void:
+	var label := mode_strings[mode] if mode_strings.has(mode) else str(mode)
+	add_item(label)
+	_item_modes.append(mode)
+	if mode_tooltips.has(mode):
+		set_item_tooltip(_item_modes.size() - 1, mode_tooltips[mode])
+
+
+func _select_current_mode() -> void:
+	var mode := DisplayServer.window_get_vsync_mode()
+	var index := _item_modes.find(mode)
+	
+	if index == -1:
+		_add_mode_item(mode)
+		_select_current_mode() # Next recursive call is garuanteed to succeed
+		return
+	
+	select(index)
 
 
 func _is_mode_allowed(mode: DisplayServer.VSyncMode) -> bool:
 	if not allowed_modes.has(mode):
 		return false
 	
+	# Sadly it doesn't seem there is a constant for gl_compatibility.
 	if auto_restrict_allowed_modes \
+			and RenderingServer.get_current_rendering_method() == "gl_compatibility" \
 			and (mode == DisplayServer.VSyncMode.VSYNC_ADAPTIVE \
 			or mode == DisplayServer.VSyncMode.VSYNC_MAILBOX):
 		return false
@@ -94,3 +125,35 @@ func _get_allowed_modes() -> Array[DisplayServer.VSyncMode]:
 			modes.append(mode)
 	
 	return modes
+
+
+# Signal connection
+func _on_item_selected(index: int) -> void:
+	if index >= _item_modes.size():
+		push_error("Selected item does not have an associated VSync mode")
+		return
+	
+	var mode := _item_modes[index]
+	
+	OptionsDisplayHelper.apply_vsync(mode)
+	OptionsProvider.get_local_options().set_option(
+			OptionsConfigProvider.get_config().vsync_option_path,
+			mode
+			)
+
+
+func _on_option_modified(path: String, new_value: Variant) -> void:
+	if path == OptionsConfigProvider.get_config().vsync_option_path:
+		_select_current_mode()
+
+
+func _connect_signals() -> void:
+	var options := OptionsProvider.get_local_options()
+	if not options.option_modified.is_connected(_on_option_modified):
+		options.option_modified.connect(_on_option_modified)
+
+
+func _disconnect_signals() -> void:
+	# Robust against options provided by OptionsProvider being switched
+	for connection in get_incoming_connections():
+		connection["signal"].disconnect(connection["callable"])
