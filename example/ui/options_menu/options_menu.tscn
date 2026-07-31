@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://i6168hsfkqt" path="res://addons/sv_options_menu/ui/volume_settings_ui/volume_settings_ui.tscn" id="1_yf2op"]
 [ext_resource type="PackedScene" uid="uid://cg3sk7atw1rs3" path="res://addons/sv_options_menu/ui/window_settings_ui/window_settings_ui.tscn" id="2_nvlck"]
 [ext_resource type="PackedScene" uid="uid://pkttw81dcu53" path="res://addons/sv_options_menu/ui/ui_scaling_settings_ui/ui_scaling_settings_ui.tscn" id="3_4ipqx"]
+[ext_resource type="PackedScene" uid="uid://cdbcshvsjv1lc" path="res://addons/sv_options_menu/ui/vsync_settings_ui/vsync_settings_ui.tscn" id="4_0hods"]
 [ext_resource type="PackedScene" uid="uid://dtor8bby8jyrj" path="res://addons/sv_options_menu/ui/input_map_settings_ui/input_map_settings_ui.tscn" id="4_lrseo"]
 
 [node name="OptionsMenu" type="Control" unique_id=1049107416]
@@ -43,9 +44,10 @@ text = "Options"
 [node name="TabContainer" type="TabContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1454605365]
 custom_minimum_size = Vector2(512, 382)
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Gameplay" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=164905565]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
@@ -60,7 +62,6 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="Video" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=377674327]
-visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 1
@@ -97,6 +98,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 allow_custom_value = true
 dropdown_increments = 0.25
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer" unique_id=1696455526]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=576394411]
+layout_mode = 2
+text = "VSync"
+
+[node name="VsyncSettingsUI" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1092695597 instance=ExtResource("4_0hods")]
+layout_mode = 2
 
 [node name="Audio" type="ScrollContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer" unique_id=923351543]
 visible = false
