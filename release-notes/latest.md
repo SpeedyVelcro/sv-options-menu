@@ -1,3 +1,5 @@
+- UI scaling properly responds to window size changes whne manage
+  resolution is off.
 - `UIScalingSubViewport` no longer loses its connections if you change
   the local options on `OptionsProvider`, or instantiate it before
   calling `start_up()`.
