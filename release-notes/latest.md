@@ -5,6 +5,9 @@
   the local options on `OptionsProvider`, or instantiate it before
   calling `start_up()`.
 - Fixed default UI scale not calculating correctly.
-- Add manage VSync mode capability
+- Improved controller/keyboard navigability for combo sliders.
+- Combo sliders now update their value correctly when modifying them
+  using controller/keyboard. 
+- Added manage VSync mode capability
 - Update `README.md` install instructions to direct users to releases
   page.
