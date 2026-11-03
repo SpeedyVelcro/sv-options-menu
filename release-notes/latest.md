@@ -1,3 +1,5 @@
+- You can now set a different default window mode from the project
+  settings by using `OptionsConfig.default_window_mode`.
 - Fixed UI scale slider clamping loaded value incorrectly.
 - UI scaling properly responds to window size changes when manage
   resolution is off.
