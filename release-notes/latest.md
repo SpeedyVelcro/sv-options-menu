@@ -1,3 +1,6 @@
+- The `VolumeSettingsUI` scene now has exported properties for changing
+  mute button styling: `mute_button_custom_minimum_size` and
+  `mute_button_expand_icon`.
 - You can now set a different default window mode from the project
   settings by using `OptionsConfig.default_window_mode`.
 - Fixed UI scale slider clamping loaded value incorrectly.
