@@ -1,3 +1,6 @@
+- The `InputMapSettingsUI` scene now has exported properties for
+  changing add and delete button styling:
+  `icon_button_custom_minimum_size` and `icon_button_expand_icon`.
 - The `VolumeSettingsUI` scene now has exported properties for changing
   mute button styling: `mute_button_custom_minimum_size` and
   `mute_button_expand_icon`.

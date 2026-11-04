@@ -7,7 +7,6 @@ extends HBoxContainer
 ## Current [InputEvent] that is set. Null if no input event is currently set
 ## (generally only the case when listening for an input event as typically
 ## deleting is the only way to unset the event)
-# TODO: modify input map on update (or should this be done further up the node tree?)
 
 ## Action (see [InputMap]) which the [member input_event] is for.
 @export var action: String = ""
@@ -38,6 +37,22 @@ extends HBoxContainer
 		_update_delete_button_icon()
 	get:
 		return delete_icon
+## [member Control.custom_minimum_size] for the delete button.
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var delete_button_custom_minimum_size = Vector2(32.0, 32.0):
+	set(value):
+		delete_button_custom_minimum_size = value
+		if _delete_button != null:
+			_delete_button.custom_minimum_size = value
+	get:
+		return delete_button_custom_minimum_size
+## [member Control.expand_icon] for the delete button.
+@export var delete_button_expand_icon := true:
+	set(value):
+		delete_button_expand_icon = value
+		if _delete_button != null:
+			_delete_button.expand_icon = value
+	get:
+		return delete_button_expand_icon
 
 @onready var _binding_button: Button = $BindingButton
 @onready var _delete_button: Button = $DeleteButton
@@ -62,18 +77,21 @@ var _listening: bool = false:
 		return _listening
 
 
-## Start listening for input
-func listen() -> void:
-	_listening = true
-
 # Override
 func _ready() -> void:
 	# Because export setters were called before ready, they couldn't affect child nodes yet:
 	locked = locked
 	input_event = input_event
 	delete_icon = delete_icon
+	delete_button_custom_minimum_size = delete_button_custom_minimum_size
+	delete_button_expand_icon = delete_button_expand_icon
 	
 	_listening_visual_timer.timeout.connect(_update_listening_text)
+
+
+## Start listening for input
+func listen() -> void:
+	_listening = true
 
 
 # Override
