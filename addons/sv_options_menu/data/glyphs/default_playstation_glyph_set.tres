@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GlyphSet" format=3 uid="uid://b7o7t4f2b1g18"]
+
+[ext_resource type="Script" uid="uid://d24m0rxnwejj4" path="res://addons/sv_options_menu/data/glyphs/glyph_set.gd" id="1_k62a4"]
+
+[resource]
+script = ExtResource("1_k62a4")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
