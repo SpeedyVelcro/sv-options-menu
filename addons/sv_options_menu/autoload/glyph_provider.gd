@@ -25,6 +25,12 @@ func _ready() -> void:
 	Input.joy_connection_changed.connect(_on_input_joy_connection_changed)
 	
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	var connected_devices := Input.get_connected_joypads()
+	if connected_devices.size() > 0:
+		_current_joy_device_name = Input.get_joy_name(connected_devices[0])
+		_current_joy_device_id = connected_devices[0]
+		joy_device_changed.emit()
 
 
 # Override
