@@ -16,7 +16,7 @@ var _unique_glyphs: Dictionary[String, GlyphSet]
 ##
 ## Note that some glyphs may not change between devices due to generic
 ## glyph fallbacks, or because they're not for a joypad device (e.g. mouse).
-signal joy_device_changed
+signal joy_glyphs_changed
 
 
 # Override
@@ -30,7 +30,7 @@ func _ready() -> void:
 	if connected_devices.size() > 0:
 		_current_joy_device_name = Input.get_joy_name(connected_devices[0])
 		_current_joy_device_id = connected_devices[0]
-		joy_device_changed.emit()
+		joy_glyphs_changed.emit()
 
 
 # Override
@@ -44,7 +44,7 @@ func _input(event: InputEvent) -> void:
 	_current_joy_device_name = Input.get_joy_name(event.device)
 	_current_joy_device_id = event.device
 	if _joy_device_override.is_empty():
-		joy_device_changed.emit()
+		joy_glyphs_changed.emit()
 	
 	# Do not set as handled. We are only listening to see what controller is
 	# currently being used, but the player is likely doing something else with
@@ -82,7 +82,7 @@ func get_glyph(event: InputEvent) -> Texture2D:
 func set_joy_device_override(device_name: String) -> void:
 	_joy_device_override = device_name
 	if _current_joy_device_name != _joy_device_override:
-		joy_device_changed.emit()
+		joy_glyphs_changed.emit()
 
 
 ## Clears override set by [method set_joy_device_override]. Returns to displaying
@@ -91,7 +91,7 @@ func clear_joy_device_override() -> void:
 	var override_before_clear = _joy_device_override
 	_joy_device_override = ""
 	if _current_joy_device_name != override_before_clear:
-		joy_device_changed.emit()
+		joy_glyphs_changed.emit()
 
 
 ## Get the device name of the joypad currently being used for glyphs.
@@ -115,7 +115,7 @@ func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
 			_current_joy_device_name = new_name
 			_current_joy_device_id = device
 			if _joy_device_override.is_empty():
-				joy_device_changed.emit()
+				joy_glyphs_changed.emit()
 	else:
 		for id in Input.get_connected_joypads():
 			if Input.get_joy_name(id) == _current_joy_device_name:
@@ -124,5 +124,5 @@ func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
 		_current_joy_device_name = ""
 		_current_joy_device_id = -1
 		if _joy_device_override.is_empty():
-			joy_device_changed.emit()
+			joy_glyphs_changed.emit()
 	
