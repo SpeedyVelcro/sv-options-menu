@@ -45,7 +45,7 @@ extends HBoxContainer
 			_delete_button.custom_minimum_size = value
 	get:
 		return delete_button_custom_minimum_size
-## [member Control.expand_icon] for the delete button.
+## [member Button.expand_icon] for the delete button.
 @export var delete_button_expand_icon := true:
 	set(value):
 		delete_button_expand_icon = value
@@ -53,6 +53,15 @@ extends HBoxContainer
 			_delete_button.expand_icon = value
 	get:
 		return delete_button_expand_icon
+## [member Button.expand_icon] for the binding button (the binding button displays
+## a glyph as its icon if bound to an input event that has a glyph assigned).
+@export var binding_button_expand_icon := true:
+	set(value):
+		binding_button_expand_icon = value
+		if _binding_button != null:
+			_binding_button.expand_icon = value
+	get:
+		return binding_button_expand_icon
 
 @onready var _binding_button: Button = $BindingButton
 @onready var _delete_button: Button = $DeleteButton
@@ -85,6 +94,7 @@ func _ready() -> void:
 	delete_icon = delete_icon
 	delete_button_custom_minimum_size = delete_button_custom_minimum_size
 	delete_button_expand_icon = delete_button_expand_icon
+	binding_button_expand_icon = binding_button_expand_icon
 	
 	_listening_visual_timer.timeout.connect(_update_listening_text)
 
