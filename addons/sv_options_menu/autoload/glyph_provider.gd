@@ -11,8 +11,8 @@ var _current_joy_device_id := -1
 var _using_keyboard_and_mouse := true
 var _mouse_speed_threshold := 16.0
 
-var _generic_glyphs: GlyphSet
-var _unique_glyphs: Dictionary[String, GlyphSet]
+var _generic_glyphs: GlyphSet = GlyphSet.new()
+var _unique_glyphs: Dictionary[String, GlyphSet] = {}
 
 ## Emitted whenever the provider detects a joy device change OR the override has
 ## changed. You should connect to this so you know when to get new glyphs.
@@ -195,6 +195,8 @@ func _get_action_event(action: String) -> InputEvent:
 func _on_options_config_provider_config_changed(new_value: OptionsConfig) -> void:
 	_generic_glyphs = new_value.generic_glyphs
 	_unique_glyphs = new_value.unique_glyphs
+	joy_glyphs_changed.emit()
+	action_glyphs_changed.emit()
 
 
 # Signal connection
