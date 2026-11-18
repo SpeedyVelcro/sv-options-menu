@@ -1,3 +1,12 @@
+- Binding buttons in options menu now show glyphs when bound to certain
+  events such as controller buttons. These glyphs are customisable in
+  OptionsConfig.
+- New utilities added on the new `GlyphProvider` autoload for getting
+  glyphs and BBCode corresponding to the player's input setting. These
+  are used for a tutorial dialog in the example game.
+- The binding buton under InputEventEditor scenes now has more
+  consistent scaling for locked input actions where the delete button
+  isn't shown.
 - The `InputMapSettingsUI` scene now has exported properties for
   changing add and delete button styling:
   `icon_button_custom_minimum_size` and `icon_button_expand_icon`.
