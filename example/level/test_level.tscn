@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://lpugk6u5vh4j" path="res://example/entity/player/player.tscn" id="2_61ofl"]
 [ext_resource type="PackedScene" uid="uid://cllx2j7ghh28" path="res://example/ui/pause_menu/pause_menu.tscn" id="3_3ukif"]
 [ext_resource type="Script" uid="uid://q556kuuqjbtq" path="res://addons/sv_options_menu/ui/ui_scaling_sub_viewport/ui_scaling_sub_viewport.gd" id="3_s2gnh"]
+[ext_resource type="Script" uid="uid://daxnip8wsm2vk" path="res://example/level/tutorial_label.gd" id="4_jgkpb"]
 [ext_resource type="AudioStream" uid="uid://dnoyx1pl0twk0" path="res://example/music/UnderwaterWaltz.ogg" id="4_sog6t"]
 
 [node name="TestLevel" type="Node2D" unique_id=1602429688]
@@ -27,9 +28,21 @@ grow_vertical = 2
 
 [node name="UIScalingSubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer" unique_id=1355529192]
 transparent_bg = true
+handle_input_locally = false
 size = Vector2i(1152, 648)
+render_target_update_mode = 4
 script = ExtResource("3_s2gnh")
 metadata/_custom_type_script = "uid://q556kuuqjbtq"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SubViewportContainer/UIScalingSubViewport" unique_id=921469832]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+bbcode_enabled = true
+text = "Press ??? to jump."
+fit_content = true
+horizontal_alignment = 1
+script = ExtResource("4_jgkpb")
 
 [node name="PauseMenu" parent="CanvasLayer/SubViewportContainer/UIScalingSubViewport" unique_id=72643200 instance=ExtResource("3_3ukif")]
 visible = false
