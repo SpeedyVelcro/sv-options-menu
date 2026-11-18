@@ -38,6 +38,10 @@ func _ready() -> void:
 		_current_joy_device_name = Input.get_joy_name(connected_devices[0])
 		_current_joy_device_id = connected_devices[0]
 		joy_glyphs_changed.emit()
+	
+	var config := OptionsConfigProvider.get_config()
+	if config:
+		_update_config(config)
 
 
 # Override
@@ -191,12 +195,16 @@ func _get_action_event(action: String) -> InputEvent:
 	return event
 
 
-# Signal connection
-func _on_options_config_provider_config_changed(new_value: OptionsConfig) -> void:
-	_generic_glyphs = new_value.generic_glyphs
-	_unique_glyphs = new_value.unique_glyphs
+func _update_config(config: OptionsConfig) -> void:
+	_generic_glyphs = config.generic_glyphs
+	_unique_glyphs = config.unique_glyphs
 	joy_glyphs_changed.emit()
 	action_glyphs_changed.emit()
+
+
+# Signal connection
+func _on_options_config_provider_config_changed(new_value: OptionsConfig) -> void:
+	_update_config(new_value)
 
 
 # Signal connection
