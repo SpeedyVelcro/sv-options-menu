@@ -8,6 +8,9 @@ var _joy_device_override := ""
 var _current_joy_device_name := ""
 var _current_joy_device_id := -1
 
+var _using_keyboard_and_mouse := true
+var _mouse_speed_threshold := 16.0
+
 var _generic_glyphs: GlyphSet
 var _unique_glyphs: Dictionary[String, GlyphSet]
 
@@ -17,6 +20,10 @@ var _unique_glyphs: Dictionary[String, GlyphSet]
 ## Note that some glyphs may not change between devices due to generic
 ## glyph fallbacks, or because they're not for a joypad device (e.g. mouse).
 signal joy_glyphs_changed
+
+## Emitted when the glyphs for input actions have changed e.g. by changing
+## controller or changing to keyboard and mouse.
+signal action_glyphs_changed
 
 
 # Override
@@ -35,16 +42,38 @@ func _ready() -> void:
 
 # Override
 func _input(event: InputEvent) -> void:
-	if event.device == _current_joy_device_id:
-		return # No change
+	# TODO: need threshold on joypad motion
+	if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
+		if _using_keyboard_and_mouse:
+			_using_keyboard_and_mouse = false
+			action_glyphs_changed.emit()
+			
+		
+		if event.device == _current_joy_device_id:
+			return # No device change
+		
+		_current_joy_device_name = Input.get_joy_name(event.device)
+		_current_joy_device_id = event.device
+		if _joy_device_override.is_empty():
+			joy_glyphs_changed.emit()
+		return
 	
-	if not ((event is InputEventJoypadButton) or (event is InputEventJoypadMotion)):
-		return # Not a joypad
+	var mouse_or_keyboard_used := false
 	
-	_current_joy_device_name = Input.get_joy_name(event.device)
-	_current_joy_device_id = event.device
-	if _joy_device_override.is_empty():
-		joy_glyphs_changed.emit()
+	if event is InputEventKey:
+		mouse_or_keyboard_used = true
+	
+	if event is InputEventMouseButton:
+		mouse_or_keyboard_used = true
+	
+	if event is InputEventMouseMotion:
+		if event.screen_velocity.length() >= _mouse_speed_threshold:
+			mouse_or_keyboard_used = true
+	
+	if mouse_or_keyboard_used:
+		if not _using_keyboard_and_mouse:
+			_using_keyboard_and_mouse = true
+			action_glyphs_changed.emit()
 	
 	# Do not set as handled. We are only listening to see what controller is
 	# currently being used, but the player is likely doing something else with
@@ -72,6 +101,40 @@ func get_glyph(event: InputEvent) -> Texture2D:
 	return _generic_glyphs.get_glyph(event)
 
 
+## Gets bbcode to display a particular glyph, returning a text fallback if there
+## is no glyph.
+##
+## If a glyph is found, this will be returned in the form of an \[img\] tag.
+## Use [param options] to pass in BBCode options.
+func get_glyph_bbcode(event: InputEvent, options := "width=1em height=1em") -> String:
+	var glyph := get_glyph(event)
+	if glyph == null:
+		return InputEventTextBuilder.build_text(event)
+	
+	if options.is_empty():
+		return "[img]%s[/img]" % glyph.resource_path
+	else:
+		return "[img %s]%s[/img]" % [options, glyph.resource_path]
+
+
+## Gets the appropriate glyph for the given input action. Unlike [method get_glyph],
+## which only changes when the controller changes, this also changes when
+## you switch between mouse/keyboard and controller. It returns the glyph for
+## the first input event bound to the action for mouse/keyboard or controller,
+## whichever is currently being used.
+##
+## Connect to [signal action_glyphs_changed] to be informed when this method
+## may return a different value
+func get_action_glyph(action: String) -> Texture2D:
+	return get_glyph(_get_action_event(action))
+
+
+## As [method get_action_glyph], but returns bbcode in a similar fashion to
+## [method get_glyph_bbcode].
+func get_action_glyph_bbcode(action: String, options := "width=1em height=1em") -> String:
+	return get_glyph_bbcode(_get_action_event(action), options)
+
+
 ## Overrides joy device tracking so this service returns glyphs for the given
 ## device instead.
 ##
@@ -83,6 +146,7 @@ func set_joy_device_override(device_name: String) -> void:
 	_joy_device_override = device_name
 	if _current_joy_device_name != _joy_device_override:
 		joy_glyphs_changed.emit()
+		action_glyphs_changed.emit()
 
 
 ## Clears override set by [method set_joy_device_override]. Returns to displaying
@@ -92,11 +156,39 @@ func clear_joy_device_override() -> void:
 	_joy_device_override = ""
 	if _current_joy_device_name != override_before_clear:
 		joy_glyphs_changed.emit()
+		action_glyphs_changed.emit()
 
 
 ## Get the device name of the joypad currently being used for glyphs.
 func get_current_joy_device_name() -> String:
 	return _current_joy_device_name if _joy_device_override.is_empty() else _joy_device_override
+
+
+func _get_action_event(action: String) -> InputEvent:
+	var events := InputMap.action_get_events(action)
+	var event: InputEvent = null
+	
+	if events.is_empty():
+		return null
+	
+	if _using_keyboard_and_mouse:
+		var index: int = events.find_custom(func(e: InputEvent) -> bool: \
+				return e is InputEventMouseButton \
+						or e is InputEventMouseMotion \
+						or e is InputEventKey)
+		if index > -1:
+			event = events[index]
+	else:
+		var index: int = events.find_custom(func(e: InputEvent) -> bool: \
+				return e is InputEventJoypadButton \
+						or e is InputEventJoypadMotion)
+		if index > -1:
+			event = events[index]
+	
+	if event == null:
+		event = events[0] # Fall back on the first input event.
+	
+	return event
 
 
 # Signal connection
@@ -116,6 +208,7 @@ func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
 			_current_joy_device_id = device
 			if _joy_device_override.is_empty():
 				joy_glyphs_changed.emit()
+				action_glyphs_changed.emit()
 	else:
 		for id in Input.get_connected_joypads():
 			if Input.get_joy_name(id) == _current_joy_device_name:
@@ -125,4 +218,5 @@ func _on_input_joy_connection_changed(device: int, connected: bool) -> void:
 		_current_joy_device_id = -1
 		if _joy_device_override.is_empty():
 			joy_glyphs_changed.emit()
+			action_glyphs_changed.emit()
 	
