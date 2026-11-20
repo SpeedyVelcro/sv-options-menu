@@ -501,9 +501,27 @@ func _get_default_unique_glyphs() -> Dictionary[String, GlyphSet]:
 		"Xbox Controller": xbox,
 		"Xbox One Controller": xbox,
 		"Xbox Series Controller": xbox,
+		"Xbox Elite Controller Series 2": xbox,
+		"Xbox One Elite 2 Controller": xbox,
+		"Microsoft Xbox 360 Controller": xbox,
+		"Microsoft Xbox One Controller": xbox,
+		"Microsoft Xbox One Elite": xbox,
+		"Microsoft Xbox One Elite 2": xbox,
+		"Microsoft Xbox Series Controller": xbox,
+		"Xbox One Elite Series 2": xbox,
+		"Xbox Elite Controller": xbox,
 		"PS1 Controller": playstation,
 		"PS2 Controller": playstation,
 		"PS3 Controller": playstation,
 		"PS4 Controller": playstation,
-		"PS5 Controller": playstation
+		"PS5 Controller": playstation,
+		"PSX": playstation,
+		"Sony PlayStation Classic Controller": playstation,
+		"Sony PlayStation Controller": playstation,
+		"PS5 Access Controller": playstation, # Significantly different layout, but the generic PS glyphs are still closer then the generic generic glyphs.
+		"Sony DualShock 2": playstation,
+		"Sony DualShock 3": playstation,
+		"Sony DualShock 4": playstation,
+		"Sony DualShock 4 V2": playstation,
+		"DualSense Wireless Controller": playstation # Not documented in SDL_GameControllerDB, but this is the device name when I use my dualsense plugged in on Fedora KDE.
 	}

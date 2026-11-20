@@ -225,6 +225,150 @@ joy_button_x_glyph = ExtResource("33_dy8aj")
 joy_button_y_glyph = ExtResource("34_4q4xf")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
+[sub_resource type="Resource" id="Resource_xn32x"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_l1t21"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_mt4he"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_cnsbj"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_by7fk"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_xk5b1"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_8876u"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_l8o5n"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_okgyf"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_6wluk"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_ycvwe"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_witsd"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_pd3r7"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_omab6"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_r0a6s"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_brkuo"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_3yggt"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_b3nq5"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
 [resource]
 script = ExtResource("4_24d8f")
 manage_resolution = true
@@ -243,13 +387,31 @@ locked_input_events = Dictionary[String, ExtResource("3_yn0ri")]({
 })
 generic_glyphs = SubResource("Resource_2ibgw")
 unique_glyphs = Dictionary[String, ExtResource("28_mt4he")]({
+"DualSense Wireless Controller": SubResource("Resource_b3nq5"),
+"Microsoft Xbox 360 Controller": SubResource("Resource_mt4he"),
+"Microsoft Xbox One Controller": SubResource("Resource_cnsbj"),
+"Microsoft Xbox One Elite": SubResource("Resource_by7fk"),
+"Microsoft Xbox One Elite 2": SubResource("Resource_xk5b1"),
+"Microsoft Xbox Series Controller": SubResource("Resource_8876u"),
 "PS1 Controller": SubResource("Resource_04ggr"),
 "PS2 Controller": SubResource("Resource_gytiw"),
 "PS3 Controller": SubResource("Resource_gsjq7"),
 "PS4 Controller": SubResource("Resource_35uhn"),
+"PS5 Access Controller": SubResource("Resource_pd3r7"),
 "PS5 Controller": SubResource("Resource_u4ipo"),
+"PSX": SubResource("Resource_6wluk"),
+"Sony DualShock 2": SubResource("Resource_omab6"),
+"Sony DualShock 3": SubResource("Resource_r0a6s"),
+"Sony DualShock 4": SubResource("Resource_brkuo"),
+"Sony DualShock 4 V2": SubResource("Resource_3yggt"),
+"Sony PlayStation Classic Controller": SubResource("Resource_ycvwe"),
+"Sony PlayStation Controller": SubResource("Resource_witsd"),
 "Xbox 360 Controller": SubResource("Resource_n8egg"),
 "Xbox Controller": SubResource("Resource_wjyow"),
+"Xbox Elite Controller": SubResource("Resource_okgyf"),
+"Xbox Elite Controller Series 2": SubResource("Resource_xn32x"),
 "Xbox One Controller": SubResource("Resource_7xcn6"),
+"Xbox One Elite 2 Controller": SubResource("Resource_l1t21"),
+"Xbox One Elite Series 2": SubResource("Resource_l8o5n"),
 "Xbox Series Controller": SubResource("Resource_majff")
 })
