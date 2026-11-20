@@ -7,6 +7,7 @@ extends Node
 var _joy_device_override := ""
 var _current_joy_device_name := ""
 var _current_joy_device_id := -1
+var _joypad_axis_threshold := 0.5
 
 var _using_keyboard_and_mouse := true
 var _mouse_speed_threshold := 16.0
@@ -48,6 +49,23 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	# TODO: need threshold on joypad motion
 	if (event is InputEventJoypadButton) or (event is InputEventJoypadMotion):
+		if event is InputEventJoypadMotion:
+			match event.axis:
+				JOY_AXIS_LEFT_X, \
+						JOY_AXIS_LEFT_Y, \
+						JOY_AXIS_RIGHT_X, \
+						JOY_AXIS_RIGHT_Y:
+					if event.axis_value < _joypad_axis_threshold:
+						# Could be unintentional or random noise or something.
+						# No need to switch glyphs.
+						return
+				_:
+					# On some controllers (e.g. my XBOX Elite Series 2), some of
+					# these undefined axes appear to track gyro/motion sensors.
+					# These should not be used for controller usage detection,
+					# as they may be accidental.
+					return
+		
 		if _using_keyboard_and_mouse:
 			_using_keyboard_and_mouse = false
 			action_glyphs_changed.emit()
