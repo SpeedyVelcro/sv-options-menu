@@ -43,6 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://bjw28qnhaeewf" path="res://addons/sv_options_menu/icon/glyph/mouse/scroll_wheel_left.svg" id="34_35uhn"]
 [ext_resource type="Texture2D" uid="uid://dvopoixmkqhbg" path="res://addons/sv_options_menu/icon/glyph/mouse/scroll_wheel_right.svg" id="35_u4ipo"]
 [ext_resource type="Texture2D" uid="uid://gb0cctcj0vmc" path="res://addons/sv_options_menu/icon/glyph/mouse/scroll_wheel_up.svg" id="36_04ggr"]
+[ext_resource type="Texture2D" uid="uid://dngd6lm1k5245" path="res://addons/sv_options_menu/icon/glyph/controller/face_button_cross.svg" id="40_gytiw"]
+[ext_resource type="Texture2D" uid="uid://bl6m4cka3bi33" path="res://addons/sv_options_menu/icon/glyph/controller/face_button_circle.svg" id="41_gsjq7"]
+[ext_resource type="Texture2D" uid="uid://caxxexjyo7osm" path="res://addons/sv_options_menu/icon/glyph/controller/face_button_square.svg" id="42_35uhn"]
+[ext_resource type="Texture2D" uid="uid://b7mkohx5krymu" path="res://addons/sv_options_menu/icon/glyph/controller/face_button_triangle.svg" id="43_u4ipo"]
 
 [sub_resource type="Resource" id="Resource_yn0ri"]
 script = ExtResource("1_y0x8s")
@@ -149,24 +153,44 @@ script = ExtResource("3_yn0ri")
 locked_events = Array[InputEvent]([SubResource("InputEventJoypadMotion_yn0ri")])
 metadata/_custom_type_script = "uid://dt7kofv62xt16"
 
-[sub_resource type="Resource" id="Resource_akiev"]
+[sub_resource type="Resource" id="Resource_04ggr"]
 script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_ii8on"]
+[sub_resource type="Resource" id="Resource_gytiw"]
 script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_dnxg6"]
+[sub_resource type="Resource" id="Resource_gsjq7"]
 script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_w1fpe"]
+[sub_resource type="Resource" id="Resource_35uhn"]
 script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_251m0"]
+[sub_resource type="Resource" id="Resource_u4ipo"]
 script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
 [sub_resource type="Resource" id="Resource_n8egg"]
@@ -219,11 +243,11 @@ locked_input_events = Dictionary[String, ExtResource("3_yn0ri")]({
 })
 generic_glyphs = SubResource("Resource_2ibgw")
 unique_glyphs = Dictionary[String, ExtResource("28_mt4he")]({
-"PS1 Controller": SubResource("Resource_akiev"),
-"PS2 Controller": SubResource("Resource_ii8on"),
-"PS3 Controller": SubResource("Resource_dnxg6"),
-"PS4 Controller": SubResource("Resource_w1fpe"),
-"PS5 Controller": SubResource("Resource_251m0"),
+"PS1 Controller": SubResource("Resource_04ggr"),
+"PS2 Controller": SubResource("Resource_gytiw"),
+"PS3 Controller": SubResource("Resource_gsjq7"),
+"PS4 Controller": SubResource("Resource_35uhn"),
+"PS5 Controller": SubResource("Resource_u4ipo"),
 "Xbox 360 Controller": SubResource("Resource_n8egg"),
 "Xbox Controller": SubResource("Resource_wjyow"),
 "Xbox One Controller": SubResource("Resource_7xcn6"),
