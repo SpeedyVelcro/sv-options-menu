@@ -38,6 +38,7 @@ func _ready() -> void:
 	if connected_devices.size() > 0:
 		_current_joy_device_name = Input.get_joy_name(connected_devices[0])
 		_current_joy_device_id = connected_devices[0]
+		action_glyphs_changed.emit()
 		joy_glyphs_changed.emit()
 	
 	var config := OptionsConfigProvider.get_config()
@@ -66,18 +67,23 @@ func _input(event: InputEvent) -> void:
 					# as they may be accidental.
 					return
 		
+		var emit_action_glyphs_changed := false
+		
 		if _using_keyboard_and_mouse:
 			_using_keyboard_and_mouse = false
-			action_glyphs_changed.emit()
+			emit_action_glyphs_changed = true
 			
 		
-		if event.device == _current_joy_device_id:
-			return # No device change
+		if event.device != _current_joy_device_id:
+			_current_joy_device_name = Input.get_joy_name(event.device)
+			_current_joy_device_id = event.device
+			if _joy_device_override.is_empty():
+				joy_glyphs_changed.emit()
+				emit_action_glyphs_changed = true
 		
-		_current_joy_device_name = Input.get_joy_name(event.device)
-		_current_joy_device_id = event.device
-		if _joy_device_override.is_empty():
-			joy_glyphs_changed.emit()
+		if emit_action_glyphs_changed:
+			action_glyphs_changed.emit()
+		
 		return
 	
 	var mouse_or_keyboard_used := false
