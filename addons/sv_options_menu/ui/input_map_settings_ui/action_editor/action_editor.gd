@@ -39,7 +39,7 @@ extends VBoxContainer
 		_update_icon_button_custom_minimum_size()
 	get:
 		return icon_button_custom_minimum_size
-## [member Control.expand_icon] for icon buttons such as the add and delete
+## [member Button.expand_icon] for icon buttons such as the add and delete
 ## buttons.
 @export var icon_button_expand_icon := true:
 	set(value):
@@ -103,6 +103,7 @@ func _update_icon_button_expand_icon() -> void:
 	
 	for input_event_editor in _get_input_event_editors():
 		input_event_editor.delete_button_expand_icon = icon_button_expand_icon
+		input_event_editor.binding_button_expand_icon = icon_button_expand_icon
 
 
 func _populate_input_event_editors():
@@ -131,6 +132,7 @@ func _populate_input_event_editors():
 		_input_event_editor.delete_icon = delete_icon
 		_input_event_editor.delete_button_custom_minimum_size = icon_button_custom_minimum_size
 		_input_event_editor.delete_button_expand_icon = icon_button_expand_icon
+		_input_event_editor.binding_button_expand_icon = icon_button_expand_icon
 		if options_config.locked_input_events.has(action):
 			if options_config.locked_input_events[action].locked_events.any(func (e: InputEvent): return e.as_text() == event.as_text()):
 				_input_event_editor.locked = true # TODO: the string comparison to check if we do this: is it robust enough?
@@ -156,6 +158,7 @@ func _on_add_button_pressed() -> void:
 	_input_event_editor.delete_icon = delete_icon
 	_input_event_editor.delete_button_custom_minimum_size = icon_button_custom_minimum_size
 	_input_event_editor.delete_button_expand_icon = icon_button_expand_icon
+	_input_event_editor.binding_button_expand_icon = icon_button_expand_icon
 	_input_event_container.add_child(_input_event_editor)
 	_input_event_editor.listen()
 	

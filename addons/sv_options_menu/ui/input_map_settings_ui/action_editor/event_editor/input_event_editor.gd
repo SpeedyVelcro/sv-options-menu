@@ -16,7 +16,7 @@ extends HBoxContainer
 	set(value):
 		input_event = value
 		if not _listening:
-			_update_text_to_input_event()
+			_display_input_event()
 	get:
 		return input_event
 ## True if the input event is locked and uneditable.
@@ -45,7 +45,7 @@ extends HBoxContainer
 			_delete_button.custom_minimum_size = value
 	get:
 		return delete_button_custom_minimum_size
-## [member Control.expand_icon] for the delete button.
+## [member Button.expand_icon] for the delete button.
 @export var delete_button_expand_icon := true:
 	set(value):
 		delete_button_expand_icon = value
@@ -53,6 +53,15 @@ extends HBoxContainer
 			_delete_button.expand_icon = value
 	get:
 		return delete_button_expand_icon
+## [member Button.expand_icon] for the binding button (the binding button displays
+## a glyph as its icon if bound to an input event that has a glyph assigned).
+@export var binding_button_expand_icon := true:
+	set(value):
+		binding_button_expand_icon = value
+		if _binding_button != null:
+			_binding_button.expand_icon = value
+	get:
+		return binding_button_expand_icon
 
 @onready var _binding_button: Button = $BindingButton
 @onready var _delete_button: Button = $DeleteButton
@@ -71,7 +80,7 @@ var _listening: bool = false:
 			_update_listening_text()
 		elif (not value) and _listening:
 			_listening_visual_timer.stop()
-			_update_text_to_input_event()
+			_display_input_event()
 		_listening = value
 	get:
 		return _listening
@@ -85,20 +94,12 @@ func _ready() -> void:
 	delete_icon = delete_icon
 	delete_button_custom_minimum_size = delete_button_custom_minimum_size
 	delete_button_expand_icon = delete_button_expand_icon
+	binding_button_expand_icon = binding_button_expand_icon
 	
 	_listening_visual_timer.timeout.connect(_update_listening_text)
 
 
-## Start listening for input
-func listen() -> void:
-	_listening = true
-
-
 # Override
-func _exit_tree() -> void:
-	_listening_visual_timer.timeout.disconnect(_update_listening_text)
-
-
 func _input(event: InputEvent) -> void:
 	# TODO: Break up method
 	const JOYPAD_AXIS_THRESHOLD = 0.5
@@ -208,6 +209,18 @@ func _input(event: InputEvent) -> void:
 	get_viewport().set_input_as_handled()
 
 
+# Override
+func _exit_tree() -> void:
+	_listening_visual_timer.timeout.disconnect(_update_listening_text)
+	if GlyphProvider.joy_glyphs_changed.is_connected(_on_glyph_provider_joy_glyphs_changed):
+		GlyphProvider.joy_glyphs_changed.disconnect(_on_glyph_provider_joy_glyphs_changed)
+
+
+## Start listening for input
+func listen() -> void:
+	_listening = true
+
+
 func _update_options():
 	var options_config := OptionsConfigProvider.get_config()
 	var options := OptionsProvider.get_bindings()
@@ -216,14 +229,25 @@ func _update_options():
 	options.set_option(options_config.get_input_map_action_path(action), options_action)
 
 
-func _update_text_to_input_event() -> void:
+func _display_input_event() -> void:
+	if _binding_button == null:
+		return # Not ready yet
+	
 	if input_event == null:
 		return
 	
-	if _binding_button == null:
-		return
+	var icon = GlyphProvider.get_glyph(input_event)
 	
-	_binding_button.text = InputEventTextBuilder.build_text(input_event)
+	if icon == null:
+		_binding_button.icon = null
+		_binding_button.text = InputEventTextBuilder.build_text(input_event)
+		if GlyphProvider.joy_glyphs_changed.is_connected(_on_glyph_provider_joy_glyphs_changed):
+			GlyphProvider.joy_glyphs_changed.disconnect(_on_glyph_provider_joy_glyphs_changed)
+	else:
+		_binding_button.icon = icon
+		_binding_button.text = ""
+		if not GlyphProvider.joy_glyphs_changed.is_connected(_on_glyph_provider_joy_glyphs_changed):
+			GlyphProvider.joy_glyphs_changed.connect(_on_glyph_provider_joy_glyphs_changed)
 
 
 func _update_listening_text() -> void:
@@ -262,3 +286,8 @@ func _on_delete_button_pressed() -> void:
 	_update_options()
 	
 	queue_free()
+
+
+# Signal connection
+func _on_glyph_provider_joy_glyphs_changed() -> void:
+	_display_input_event()
