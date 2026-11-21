@@ -136,7 +136,7 @@ enum DefaultWindowMode {
 
 ## Determines whether SV Options Menu will manage VSync mode of the main game
 ## window. The default value will be [member ProjectSettings.display/window/vsync/vsync_mode].
-@export var manage_vsync: bool = true
+@export var manage_vsync: bool = false
 
 ## Path to store VSync mode. Used if [member manage_vsync] is [code]true[/code].
 @export var vsync_option_path: String = "display/vsync"
