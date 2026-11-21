@@ -153,92 +153,12 @@ script = ExtResource("3_yn0ri")
 locked_events = Array[InputEvent]([SubResource("InputEventJoypadMotion_yn0ri")])
 metadata/_custom_type_script = "uid://dt7kofv62xt16"
 
-[sub_resource type="Resource" id="Resource_04ggr"]
+[sub_resource type="Resource" id="Resource_b3nq5"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
 joy_button_x_glyph = ExtResource("42_35uhn")
 joy_button_y_glyph = ExtResource("43_u4ipo")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_gytiw"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("40_gytiw")
-joy_button_b_glyph = ExtResource("41_gsjq7")
-joy_button_x_glyph = ExtResource("42_35uhn")
-joy_button_y_glyph = ExtResource("43_u4ipo")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_gsjq7"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("40_gytiw")
-joy_button_b_glyph = ExtResource("41_gsjq7")
-joy_button_x_glyph = ExtResource("42_35uhn")
-joy_button_y_glyph = ExtResource("43_u4ipo")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_35uhn"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("40_gytiw")
-joy_button_b_glyph = ExtResource("41_gsjq7")
-joy_button_x_glyph = ExtResource("42_35uhn")
-joy_button_y_glyph = ExtResource("43_u4ipo")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_u4ipo"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("40_gytiw")
-joy_button_b_glyph = ExtResource("41_gsjq7")
-joy_button_x_glyph = ExtResource("42_35uhn")
-joy_button_y_glyph = ExtResource("43_u4ipo")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_n8egg"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_wjyow"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_7xcn6"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_majff"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_xn32x"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_l1t21"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
 [sub_resource type="Resource" id="Resource_mt4he"]
@@ -281,23 +201,7 @@ joy_button_x_glyph = ExtResource("33_dy8aj")
 joy_button_y_glyph = ExtResource("34_4q4xf")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_l8o5n"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_okgyf"]
-script = ExtResource("28_mt4he")
-joy_button_a_glyph = ExtResource("31_g8i01")
-joy_button_b_glyph = ExtResource("32_83s3w")
-joy_button_x_glyph = ExtResource("33_dy8aj")
-joy_button_y_glyph = ExtResource("34_4q4xf")
-metadata/_custom_type_script = "uid://d24m0rxnwejj4"
-
-[sub_resource type="Resource" id="Resource_6wluk"]
+[sub_resource type="Resource" id="Resource_04ggr"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
@@ -305,7 +209,7 @@ joy_button_x_glyph = ExtResource("42_35uhn")
 joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_ycvwe"]
+[sub_resource type="Resource" id="Resource_gytiw"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
@@ -313,7 +217,15 @@ joy_button_x_glyph = ExtResource("42_35uhn")
 joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_witsd"]
+[sub_resource type="Resource" id="Resource_gsjq7"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_35uhn"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
@@ -322,6 +234,22 @@ joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
 [sub_resource type="Resource" id="Resource_pd3r7"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_u4ipo"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_6wluk"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
@@ -361,7 +289,7 @@ joy_button_x_glyph = ExtResource("42_35uhn")
 joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
-[sub_resource type="Resource" id="Resource_b3nq5"]
+[sub_resource type="Resource" id="Resource_ycvwe"]
 script = ExtResource("28_mt4he")
 joy_button_a_glyph = ExtResource("40_gytiw")
 joy_button_b_glyph = ExtResource("41_gsjq7")
@@ -369,11 +297,84 @@ joy_button_x_glyph = ExtResource("42_35uhn")
 joy_button_y_glyph = ExtResource("43_u4ipo")
 metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 
+[sub_resource type="Resource" id="Resource_witsd"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("40_gytiw")
+joy_button_b_glyph = ExtResource("41_gsjq7")
+joy_button_x_glyph = ExtResource("42_35uhn")
+joy_button_y_glyph = ExtResource("43_u4ipo")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_n8egg"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_wjyow"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_okgyf"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_xn32x"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_7xcn6"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_l1t21"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_l8o5n"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
+[sub_resource type="Resource" id="Resource_majff"]
+script = ExtResource("28_mt4he")
+joy_button_a_glyph = ExtResource("31_g8i01")
+joy_button_b_glyph = ExtResource("32_83s3w")
+joy_button_x_glyph = ExtResource("33_dy8aj")
+joy_button_y_glyph = ExtResource("34_4q4xf")
+metadata/_custom_type_script = "uid://d24m0rxnwejj4"
+
 [resource]
 script = ExtResource("4_24d8f")
 manage_resolution = true
 manage_window_mode = true
 manage_screen = true
+manage_vsync = true
 manage_volume = true
 editable_buses = Array[ExtResource("2_3sj0y")]([SubResource("Resource_24d8f"), SubResource("Resource_dcy7j"), SubResource("Resource_sbmeu"), SubResource("Resource_r3xow")])
 manage_ui_scaling = true
