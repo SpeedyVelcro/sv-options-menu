@@ -5,6 +5,7 @@
 - Added `OptionCheckButton`, a `CheckButton` that tracks and changes a
   configured option.
 - Added `OptionCheckBox`
+- Added `OptionLineEdit`
 - `OptionsConfig.custom_default_options` now accepts a `Dictionary`
   instead of a `GameOptions`. This should make it easier to edit in
   the inspector.

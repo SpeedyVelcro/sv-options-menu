@@ -46,7 +46,16 @@ func _ready() -> void:
 	if starting_value is bool:
 		set_pressed_no_signal(starting_value)
 	else:
-		push_error("Cannot set OptionCheckButton starting value because linked option was not a bool.")
+		push_error("Cannot set OptionCheckButton starting toggle status because linked option was not a bool.")
+
+
+# Override
+func _exit_tree() -> void:
+	if _accessor.option_modified.is_connected(_on_accessor_option_modified):
+		_accessor.option_modified.disconnect(_on_accessor_option_modified)
+	
+	if toggled.is_connected(_on_toggled):
+		toggled.disconnect(_on_toggled)
 
 
 # Signal connection
@@ -54,7 +63,7 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 	if new_value is bool:
 		set_pressed_no_signal(new_value)
 	else:
-		push_error("Cannot set OptionCheckButton starting value because linked option was not a bool.")
+		push_error("Cannot set OptionCheckButton toggle status because linked option was not a bool.")
 
 
 # Signal connection
