@@ -67,9 +67,9 @@ enum DefaultWindowMode {
 @export var bindings_cloud_backup_file_path: String = "user://user-bindings-cloud-backup.json"
 
 ## Default options for use as a fallback that aren't configured elsewhere on
-## this class. If this is null, then no custom default options will be used
+## this class. If this is empty, then no custom default options will be used
 ## (only default options configured elsewhere on this class will be used).
-@export var custom_default_options: GameOptions
+@export var custom_default_options: Dictionary[String, Variant] = {}
 
 ## When [code]true[/code], the SV Options Menu addon will automatically set up
 ## all its singletons from the [OptionsConfig] that was loaded.
@@ -367,9 +367,7 @@ func get_default_options() -> GameOptions:
 		push_error("Not implemented in-editor.")
 		return GameOptions.new()
 	
-	var default_options: GameOptions = custom_default_options.duplicate_deep(Resource.DEEP_DUPLICATE_ALL) \
-			if custom_default_options != null \
-			else GameOptions.new()
+	var default_options := GameOptions.new()
 	
 	if manage_volume:
 		for bus: EditableBusConfig in editable_buses:
@@ -405,6 +403,9 @@ func get_default_options() -> GameOptions:
 	if manage_input_map:
 		var input_map_actions := InputMapOptionsTranslator.translate_input_map_actions_to_options(editable_input_actions, locked_input_events)
 		default_options.set_option(input_map_option_path, input_map_actions)
+	
+	for key in custom_default_options.keys():
+		default_options.set_option(key, custom_default_options[key])
 	
 	return default_options
 
