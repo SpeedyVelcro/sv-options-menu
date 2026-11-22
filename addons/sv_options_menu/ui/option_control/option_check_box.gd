@@ -1,5 +1,5 @@
 class_name OptionCheckBox
-extends CheckButton
+extends CheckBox
 ## [CheckBox] linked to an option in SV Options.
 ##
 ## This `CheckButton` will update itself to reflect a configured option, and
