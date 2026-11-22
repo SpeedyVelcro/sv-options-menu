@@ -7,6 +7,7 @@
 - Added `OptionCheckBox`
 - Added `OptionLineEdit`
 - Added `OptionOptionButton`
+- Added `OptionSpinBox`
 - `OptionsConfig.custom_default_options` now accepts a `Dictionary`
   instead of a `GameOptions`. This should make it easier to edit in
   the inspector.
