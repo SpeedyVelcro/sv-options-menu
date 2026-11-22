@@ -14,7 +14,7 @@ extends Node
 @export var cloud := false
 
 ## Emitted when the linked option is changed.
-signal option_changed(new_value: Variant)
+signal option_modified(new_value: Variant)
 
 
 var _local_options: GameOptions:
