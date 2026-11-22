@@ -8,8 +8,6 @@ extends LineEdit
 ## Note that changing the text by setting [member text]
 ## will not forward the change to the option as it relies on signals to detect
 ## when toggled.
-# NB: This is mostly a duplicate of OptionCheckButton. A necessary evil, since
-# CheckBox has different inheritance.
 
 ## Possible values for [member modify_option_on].
 enum ModifyOptionCondition {
