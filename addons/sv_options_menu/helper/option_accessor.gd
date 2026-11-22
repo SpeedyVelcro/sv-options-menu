@@ -13,6 +13,7 @@ extends Node
 ## cloud options instead of local options.
 @export var cloud := false
 
+# TODO: Doesn't currently emit when options is swapped out on OptionsProvider
 ## Emitted when the linked option is changed.
 signal option_modified(new_value: Variant)
 
@@ -47,6 +48,9 @@ var _cloud_options: GameOptions:
 func _ready() -> void:
 	OptionsProvider.local_options_changed.connect(_on_options_provider_local_options_changed)
 	OptionsProvider.cloud_options_changed.connect(_on_options_provider_cloud_options_changed)
+	
+	_local_options = OptionsProvider.get_local_options()
+	_cloud_options = OptionsProvider.get_cloud_options()
 
 
 # Override
@@ -100,7 +104,7 @@ func _on_local_options_option_modified(path: String, new_value: Variant) -> void
 	if path != option_path:
 		return
 	
-	option_changed.emit(new_value)
+	option_modified.emit(new_value)
 
 
 # Signal connection
@@ -111,4 +115,4 @@ func _on_cloud_options_option_modified(path: String, new_value: Variant) -> void
 	if path != option_path:
 		return
 	
-	option_changed.emit(new_value)
+	option_modified.emit(new_value)

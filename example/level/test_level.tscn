@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://bddirmabykg6n" path="res://example/tile/brick/brick_tile_set.tres" id="1_hnnv4"]
 [ext_resource type="PackedScene" uid="uid://lpugk6u5vh4j" path="res://example/entity/player/player.tscn" id="2_61ofl"]
 [ext_resource type="PackedScene" uid="uid://cllx2j7ghh28" path="res://example/ui/pause_menu/pause_menu.tscn" id="3_3ukif"]
+[ext_resource type="PackedScene" uid="uid://dm5vag2ex75ga" path="res://example/entity/player_camera/player_camera_2d.tscn" id="3_7xun2"]
 [ext_resource type="Script" uid="uid://q556kuuqjbtq" path="res://addons/sv_options_menu/ui/ui_scaling_sub_viewport/ui_scaling_sub_viewport.gd" id="3_s2gnh"]
 [ext_resource type="Script" uid="uid://daxnip8wsm2vk" path="res://example/level/tutorial_label.gd" id="4_jgkpb"]
 [ext_resource type="AudioStream" uid="uid://dnoyx1pl0twk0" path="res://example/music/UnderwaterWaltz.ogg" id="4_sog6t"]
@@ -15,6 +16,8 @@ tile_set = ExtResource("1_hnnv4")
 
 [node name="Player" parent="." unique_id=668631703 instance=ExtResource("2_61ofl")]
 position = Vector2(496, 400)
+
+[node name="PlayerCamera2D" parent="Player" unique_id=1444399010 instance=ExtResource("3_7xun2")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=767900378]
 
