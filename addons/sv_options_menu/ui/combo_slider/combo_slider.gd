@@ -1,3 +1,4 @@
+class_name _ComboSlider
 extends Control
 ## General-purpose combo [HSlider]/[MenuButton]/[LineEdit] control.
 ##
@@ -82,7 +83,7 @@ extends Control
 @export var value: float = 1.0:
 	set(to):
 		_internal_value = clampf(snappedf(to, snap), min_value, max_value)
-		_on_value_changed()
+		_update_controls_to_value()
 		value_changed.emit(value)
 	get:
 		return _internal_value
@@ -129,11 +130,10 @@ func update_arrow_icon() -> void:
 ## Set [member value] to the given value without emitting [signal value_changed].
 func set_value_no_signal(to: float) -> void:
 	_internal_value = to
-	_on_value_changed()
+	_update_controls_to_value()
 
 
-# NOT a signal connection - rather called directly from the setter.
-func _on_value_changed() -> void:
+func _update_controls_to_value() -> void:
 	_slider.set_value_no_signal(value) # Slider node auto-clamps value
 	_line_edit.text = _format_float(value)
 	_value_label.text = _format_float(value)

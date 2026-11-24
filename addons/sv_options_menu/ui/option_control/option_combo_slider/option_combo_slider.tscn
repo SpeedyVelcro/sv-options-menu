@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://pg2tem6w5aed"]
+
+[ext_resource type="PackedScene" uid="uid://y7eds1bgeefk" path="res://addons/sv_options_menu/ui/combo_slider/combo_slider.tscn" id="1_laxgk"]
+[ext_resource type="Script" uid="uid://b0m1ew4mwemfc" path="res://addons/sv_options_menu/ui/option_control/option_combo_slider/option_combo_slider.gd" id="2_oaci6"]
+[ext_resource type="Script" uid="uid://cofd6ulk2f0gd" path="res://addons/sv_options_menu/helper/option_accessor.gd" id="3_cjseg"]
+
+[node name="OptionComboSlider" unique_id=1158959838 instance=ExtResource("1_laxgk")]
+script = ExtResource("2_oaci6")
+option_path = ""
+cloud = false
+
+[node name="OptionAccessor" type="Node" parent="." index="2" unique_id=2113093293]
+script = ExtResource("3_cjseg")
+metadata/_custom_type_script = "uid://cofd6ulk2f0gd"

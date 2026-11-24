@@ -2,14 +2,15 @@
 - Added `OptionAccessor` a node that tracks a specific option (as
   specified by `option_path`), making it easy to create new option
   controls.
-- Added `OptionCheckButton`, a `CheckButton` that tracks and changes a
+- Added `OptionCheckButton` node, a `CheckButton` that tracks and changes a
   configured option.
-- Added `OptionCheckBox`
-- Added `OptionLineEdit`
-- Added `OptionOptionButton`
-- Added `OptionSpinBox`
-- Added `OptionHSlider`
-- Added `OptionVSlider`
+- Added `OptionCheckBox` node.
+- Added `OptionLineEdit` node.
+- Added `OptionOptionButton` node.
+- Added `OptionSpinBox` node.
+- Added `OptionHSlider` node.
+- Added `OptionVSlider` node.
+- Added `OptionComboSlider` scene.
 - `OptionsConfig.custom_default_options` now accepts a `Dictionary`
   instead of a `GameOptions`. This should make it easier to edit in
   the inspector.
