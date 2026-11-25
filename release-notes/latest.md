@@ -10,6 +10,8 @@
 - Added `OptionSpinBox` node.
 - Added `OptionHSlider` node.
 - Added `OptionVSlider` node.
+- Added `OptionColorPickerButton` node.
+- Added `OptionColorPicker` node.
 - Added `OptionComboSlider` scene.
 - `OptionsConfig.custom_default_options` now accepts a `Dictionary`
   instead of a `GameOptions`. This should make it easier to edit in
