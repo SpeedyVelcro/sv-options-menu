@@ -6,6 +6,7 @@
   configured option.
 - Added `OptionCheckBox` node.
 - Added `OptionLineEdit` node.
+- Added `OptionTextEdit` node.
 - Added `OptionOptionButton` node.
 - Added `OptionSpinBox` node.
 - Added `OptionHSlider` node.
