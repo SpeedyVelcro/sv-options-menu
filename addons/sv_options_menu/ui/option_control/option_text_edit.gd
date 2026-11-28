@@ -117,7 +117,48 @@ func update_option(to := text) -> void:
 # Signal connection
 func _on_accessor_option_modified(new_value: Variant) -> void:
 	if new_value is String:
+		var original_caret_lines: Array[int] = []
+		var original_caret_columns: Array[int] = []
+		var original_carets_at_end_of_text: Array[bool] = []
+		var original_caret_count: int = 0
+		
+		for i in range(get_caret_count()):
+			original_caret_count += 1
+			
+			var line := get_caret_line(i)
+			var column := get_caret_column(i)
+			
+			original_caret_lines.append(get_caret_line(i))
+			original_caret_columns.append(get_caret_column(i))
+			original_carets_at_end_of_text.append(line >= get_line_count() - 1 \
+					and column >= get_line(i).length() ) # Not -1 because caret can be after final character of line
+		
 		text = new_value
+		
+		var new_lines := text.split("\n")
+		
+		for i in range(original_caret_count):
+			var original_line := original_caret_lines[i]
+			var original_column := original_caret_columns[i]
+			var end_of_text := original_carets_at_end_of_text[i]
+			var line: int
+			var column: int
+			
+			if end_of_text or original_line > get_line_count() - 1:
+				line = get_line_count() - 1
+				column = get_line(get_line_count() - 1).length()
+			else:
+				line = original_line
+				if original_column > get_line(line).length():
+					column = get_line(line).length()
+				else:
+					column = original_column
+			
+			if i >= get_caret_count():
+				add_caret(line, column)
+			else:
+				set_caret_line(line, true, true, -1, i)
+				set_caret_column(column, true, i)
 	else:
 		push_error("Cannot set OptionLineEdit value because linked option was not a String.")
 
@@ -139,14 +180,14 @@ func _on_lines_edited_from(from_line: int, to_line: int) -> void:
 
 
 # Signal connection
-func _on_text_changed(new_text: String) -> void:
+func _on_text_changed() -> void:
 	if not update_on_text_changed:
 		return
 	
 	if update_debounce:
 		_debounce_timer.start(update_debounce_time_secs)
 	else:
-		update_option(new_text)
+		update_option()
 
 
 # Signal connection
