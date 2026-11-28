@@ -67,7 +67,7 @@ func _exit_tree() -> void:
 
 
 ## Sets the linked option to the given value.
-func set_option(value: Variant) -> void:
+func set_value(value: Variant) -> void:
 	var options = _cloud_options if cloud else _local_options
 	if options == null:
 		push_error("OptionAccessor cannot set option because options resource is null.")
@@ -77,7 +77,7 @@ func set_option(value: Variant) -> void:
 
 
 ## Gets the current value of the linked option.
-func get_option() -> Variant:
+func get_value() -> Variant:
 	var options = _cloud_options if cloud else _local_options
 	if options == null:
 		push_error("OptionAccessor cannot get option because options resource is null. Returning default of null.")

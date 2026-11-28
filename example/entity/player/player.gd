@@ -15,7 +15,7 @@ var jump_speed: int = 400
 
 # Override
 func _ready() -> void:
-	_update_sprite_untyped(_sprite_option_accessor.get_option())
+	_update_sprite_untyped(_sprite_option_accessor.get_value())
 
 
 # Override

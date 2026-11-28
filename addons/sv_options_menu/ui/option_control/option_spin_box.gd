@@ -44,7 +44,7 @@ func _ready() -> void:
 	_accessor.option_modified.connect(_on_accessor_option_modified)
 	value_changed.connect(_on_value_changed)
 	
-	var starting_value := _accessor.get_option()
+	var starting_value := _accessor.get_value()
 	if (starting_value is float) or (starting_value is int):
 		set_value_no_signal(starting_value)
 	else:
@@ -70,4 +70,4 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 
 # Signal connection
 func _on_value_changed(new_value: float) -> void:
-	_accessor.set_option(new_value)
+	_accessor.set_value(new_value)

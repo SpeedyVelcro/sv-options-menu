@@ -84,7 +84,7 @@ func _exit_tree() -> void:
 ## Initialise the starting value of this option button to match its tracked
 ## option. You only need to call this if [member auto_init] is [code]false[/code].
 func init_option() -> void:
-	var starting_value := _accessor.get_option()
+	var starting_value := _accessor.get_value()
 	_select_item_by_value(starting_value)
 
 
@@ -143,12 +143,12 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 func _on_item_selected(index: int) -> void:
 	match value_store:
 		ValueStore.ID:
-			_accessor.set_option(get_item_id(index))
+			_accessor.set_value(get_item_id(index))
 		ValueStore.INDEX:
-			_accessor.set_option(index)
+			_accessor.set_value(index)
 		ValueStore.METADATA:
-			_accessor.set_option(get_item_metadata(index))
+			_accessor.set_value(get_item_metadata(index))
 		ValueStore.TEXT:
-			_accessor.set_option(get_item_text(index))
+			_accessor.set_value(get_item_text(index))
 		_:
 			push_error("Invalid value_store value. Cannot set option value.")

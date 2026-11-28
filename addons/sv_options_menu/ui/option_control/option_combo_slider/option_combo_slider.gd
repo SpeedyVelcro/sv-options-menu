@@ -39,7 +39,7 @@ func _ready() -> void:
 	option_path = option_path
 	cloud = cloud
 	
-	var starting_value: Variant = _accessor.get_option()
+	var starting_value: Variant = _accessor.get_value()
 	if (starting_value is float) or (starting_value is int):
 		set_value_no_signal(starting_value)
 	else:
@@ -70,4 +70,4 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 
 # Signal connection
 func _on_value_changed(to: float) -> void:
-	_accessor.set_option(to)
+	_accessor.set_value(to)

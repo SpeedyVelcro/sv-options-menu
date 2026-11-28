@@ -44,7 +44,7 @@ func _ready() -> void:
 	_accessor.option_modified.connect(_on_accessor_option_modified)
 	color_changed.connect(_on_color_changed)
 	
-	var starting_value := _accessor.get_option()
+	var starting_value := _accessor.get_value()
 	if starting_value is String:
 		color = Color.from_string(starting_value, Color.WHITE)
 	else:
@@ -70,4 +70,4 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 
 # Signal connection
 func _on_color_changed(color: Color) -> void:
-	_accessor.set_option(color.to_html())
+	_accessor.set_value(color.to_html())

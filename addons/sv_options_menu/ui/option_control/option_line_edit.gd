@@ -86,7 +86,7 @@ func _ready() -> void:
 	text_changed.connect(_on_text_changed)
 	text_submitted.connect(_on_text_submitted)
 	
-	var starting_value := _accessor.get_option()
+	var starting_value := _accessor.get_value()
 	if starting_value is String:
 		text = starting_value
 	else:
@@ -122,7 +122,7 @@ func update_option(to := text) -> void:
 	if not _debounce_timer.is_stopped():
 		_debounce_timer.stop()
 	
-	_accessor.set_option(to)
+	_accessor.set_value(to)
 
 
 # Signal connection

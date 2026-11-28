@@ -42,7 +42,7 @@ func _ready() -> void:
 	_accessor.option_modified.connect(_on_accessor_option_modified)
 	toggled.connect(_on_toggled)
 	
-	var starting_value := _accessor.get_option()
+	var starting_value := _accessor.get_value()
 	if starting_value is bool:
 		set_pressed_no_signal(starting_value)
 	else:
@@ -68,4 +68,4 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 
 # Signal connection
 func _on_toggled(toggled_on: bool) -> void:
-	_accessor.set_option(toggled_on)
+	_accessor.set_value(toggled_on)
