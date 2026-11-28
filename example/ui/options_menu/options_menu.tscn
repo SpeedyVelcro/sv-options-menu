@@ -121,6 +121,9 @@ edit_alpha = false
 edit_intensity = false
 script = ExtResource("5_evw1j")
 option_path = "general/player/name_color"
+color_picker_can_add_swatches = false
+color_picker_presets_visible = false
+color_picker_sampler_visible = false
 metadata/_custom_type_script = "uid://bh13r0dee3r34"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer" unique_id=515454908]

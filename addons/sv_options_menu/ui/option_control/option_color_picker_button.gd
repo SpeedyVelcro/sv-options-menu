@@ -30,6 +30,89 @@ extends ColorPickerButton
 	get:
 		return cloud
 
+
+@export_group("Color Picker")
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_can_add_swatches := true:
+	set(value):
+		get_picker().can_add_swatches = value
+	get:
+		return get_picker().can_add_swatches
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_color_mode: ColorPicker.ColorModeType = ColorPicker.ColorModeType.MODE_RGB:
+	set(value):
+		get_picker().color_mode = value
+	get:
+		return get_picker().color_mode
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_color_modes_visible := true:
+	set(value):
+		get_picker().color_modes_visible = value
+	get:
+		return get_picker().color_modes_visible
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_deferred_mode := false:
+	set(value):
+		get_picker().deferred_mode = value
+	get:
+		return get_picker().deferred_mode
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_hex_visible := true:
+	set(value):
+		get_picker().hex_visible = value
+	get:
+		return get_picker().hex_visible
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_picker_shape: ColorPicker.PickerShapeType = ColorPicker.PickerShapeType.SHAPE_HSV_RECTANGLE:
+	set(value):
+		get_picker().picker_shape = value
+	get:
+		return get_picker().picker_shape
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_presets_visible := true:
+	set(value):
+		get_picker().presets_visible = value
+	get:
+		return get_picker().presets_visible
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_sampler_visible := true:
+	set(value):
+		get_picker().sampler_visible = value
+	get:
+		return get_picker().sampler_visible
+
+## Pass-through for [ColorPicker]. Provided here because [ColorPickerButton]
+## currently doesn't provide exported properties for these (last checked in
+## Godot 4.7).
+@export var color_picker_sliders_visible := true:
+	set(value):
+		get_picker().sliders_visible = value
+	get:
+		return get_picker().sliders_visible
+
 var _accessor: OptionAccessor
 
 
