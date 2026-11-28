@@ -128,7 +128,13 @@ func update_option(to := text) -> void:
 # Signal connection
 func _on_accessor_option_modified(new_value: Variant) -> void:
 	if new_value is String:
+		var original_caret_column := caret_column
+		var was_at_end := original_caret_column >= text.length()
 		text = new_value
+		if was_at_end:
+			caret_column = text.length()
+		else:
+			caret_column = original_caret_column
 	else:
 		push_error("Cannot set OptionLineEdit value because linked option was not a String.")
 
