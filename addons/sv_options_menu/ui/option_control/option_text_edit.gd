@@ -135,8 +135,6 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 		
 		text = new_value
 		
-		var new_lines := text.split("\n")
-		
 		for i in range(original_caret_count):
 			var original_line := original_caret_lines[i]
 			var original_column := original_caret_columns[i]
