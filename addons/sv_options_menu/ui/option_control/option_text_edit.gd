@@ -157,6 +157,9 @@ func _on_accessor_option_modified(new_value: Variant) -> void:
 			else:
 				set_caret_line(line, true, true, -1, i)
 				set_caret_column(column, true, i)
+		
+		if get_caret_count() > 1:
+			merge_overlapping_carets()
 	else:
 		push_error("Cannot set OptionLineEdit value because linked option was not a String.")
 
