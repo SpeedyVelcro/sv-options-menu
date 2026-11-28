@@ -372,7 +372,8 @@ metadata/_custom_type_script = "uid://d24m0rxnwejj4"
 [resource]
 script = ExtResource("4_24d8f")
 custom_default_options = Dictionary[String, Variant]({
-"general/camera/smoothing": true
+"general/camera/smoothing": true,
+"general/player/sprite": "uid://cr0e53iybcqxk"
 })
 manage_resolution = true
 manage_window_mode = true

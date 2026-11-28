@@ -45,6 +45,13 @@ enum ValueStore {
 ## Do not modify this after ready as it will cause undefined behaviour.
 @export var value_store: ValueStore = ValueStore.ID
 
+## Set to [code]true[/code] to automatically initialize  on ready. You may wish
+## to set this to false if you need to programmatically populate items to choose
+## from first.
+##
+## Alternatively, you may extend the class itself and implement [method _pre_populate].
+@export var auto_init := true
+
 var _accessor: OptionAccessor
 
 
@@ -59,8 +66,10 @@ func _ready() -> void:
 	_accessor.option_modified.connect(_on_accessor_option_modified)
 	item_selected.connect(_on_item_selected)
 	
-	var starting_value := _accessor.get_option()
-	_select_item_by_value(starting_value)
+	_pre_populate()
+	
+	if auto_init:
+		init_option()
 
 
 # Override
@@ -70,6 +79,19 @@ func _exit_tree() -> void:
 	
 	if item_selected.is_connected(_on_item_selected):
 		item_selected.disconnect(_on_item_selected)
+
+
+## Initialise the starting value of this option button to match its tracked
+## option. You only need to call this if [member auto_init] is [code]false[/code].
+func init_option() -> void:
+	var starting_value := _accessor.get_option()
+	_select_item_by_value(starting_value)
+
+
+## You may override this method to pre-populate this option button with items.
+## It is called before auto-init.
+func _pre_populate() -> void:
+	return # Inheriting class may override
 
 
 func _select_item_by_value(value: Variant):
@@ -114,10 +136,7 @@ func _select_item_by_value(value: Variant):
 
 # Signal connection
 func _on_accessor_option_modified(new_value: Variant) -> void:
-	if new_value is bool:
-		_select_item_by_value(new_value)
-	else:
-		push_error("Cannot set OptionOptionButton selection because linked option was wrong type.")
+	_select_item_by_value(new_value)
 
 
 # Signal connection

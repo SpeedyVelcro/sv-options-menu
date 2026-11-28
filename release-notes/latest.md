@@ -18,6 +18,10 @@
   instead of a `GameOptions`. This should make it easier to edit in
   the inspector.
 
+### Example Game
+- Added player color setting, which demonstrates the
+  `OptionOptionButton` node.
+
 ### Breaking Changes
 - `OptionsConfig.custom_default_options` is now a dictionary with the
   keys being option paths and the values being the default value of
