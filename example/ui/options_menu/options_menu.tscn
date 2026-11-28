@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cdbcshvsjv1lc" path="res://addons/sv_options_menu/ui/vsync_settings_ui/vsync_settings_ui.tscn" id="4_0hods"]
 [ext_resource type="PackedScene" uid="uid://dtor8bby8jyrj" path="res://addons/sv_options_menu/ui/input_map_settings_ui/input_map_settings_ui.tscn" id="4_lrseo"]
 [ext_resource type="Script" uid="uid://daqpiq3jq6m4x" path="res://addons/sv_options_menu/ui/option_control/option_line_edit.gd" id="4_mm5ma"]
+[ext_resource type="Script" uid="uid://bh13r0dee3r34" path="res://addons/sv_options_menu/ui/option_control/option_color_picker_button.gd" id="5_evw1j"]
 
 [node name="OptionsMenu" type="Control" unique_id=1049107416]
 layout_mode = 3
@@ -85,7 +86,7 @@ horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer" unique_id=451865937]
 layout_mode = 2
-theme_override_constants/h_separation = 32
+theme_override_constants/h_separation = 16
 columns = 2
 
 [node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/GridContainer" unique_id=849407632]
@@ -107,6 +108,20 @@ layout_mode = 2
 script = ExtResource("4_mm5ma")
 option_path = "general/player/name"
 metadata/_custom_type_script = "uid://daqpiq3jq6m4x"
+
+[node name="Label3" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/GridContainer" unique_id=695149239]
+layout_mode = 2
+text = "Nametag Color"
+
+[node name="OptionColorPickerButton" type="ColorPickerButton" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/GridContainer" unique_id=508187546]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+edit_alpha = false
+edit_intensity = false
+script = ExtResource("5_evw1j")
+option_path = "general/player/name_color"
+metadata/_custom_type_script = "uid://bh13r0dee3r34"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer" unique_id=515454908]
 layout_mode = 2

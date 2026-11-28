@@ -62,7 +62,7 @@ func _exit_tree() -> void:
 
 # Signal connection
 func _on_accessor_option_modified(new_value: Variant) -> void:
-	if new_value is Color:
+	if new_value is String:
 		color = Color.from_string(new_value, Color.WHITE)
 	else:
 		push_error("Cannot set OptionColorPickerButton value because linked option was not a String.")

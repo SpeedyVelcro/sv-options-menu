@@ -374,6 +374,7 @@ script = ExtResource("4_24d8f")
 custom_default_options = Dictionary[String, Variant]({
 "general/camera/smoothing": true,
 "general/player/name": "Player",
+"general/player/name_color": "ffffff",
 "general/player/sprite": "uid://cr0e53iybcqxk"
 })
 manage_resolution = true

@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1dav"]
 size = Vector2(32, 31)
 
-[node name="Player" type="CharacterBody2D" unique_id=668631703 node_paths=PackedStringArray("_sprite_2d", "_name_label", "_sprite_option_accessor", "_name_option_accessor")]
+[node name="Player" type="CharacterBody2D" unique_id=668631703 node_paths=PackedStringArray("_sprite_2d", "_name_label", "_sprite_option_accessor", "_name_option_accessor", "_nametag_color_option_accessor")]
 collision_layer = 2
 platform_floor_layers = 4294901761
 platform_wall_layers = 1
@@ -16,6 +16,7 @@ _sprite_2d = NodePath("Sprite2D")
 _name_label = NodePath("NameLabel")
 _sprite_option_accessor = NodePath("SpriteOptionAccessor")
 _name_option_accessor = NodePath("NameOptionAccessor")
+_nametag_color_option_accessor = NodePath("NametagColorOptionAccessor")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1130980657]
 texture = ExtResource("1_8ep5e")
@@ -48,5 +49,11 @@ script = ExtResource("3_h1dav")
 option_path = "general/player/name"
 metadata/_custom_type_script = "uid://cofd6ulk2f0gd"
 
+[node name="NametagColorOptionAccessor" type="Node" parent="." unique_id=2131227724]
+script = ExtResource("3_h1dav")
+option_path = "general/player/name_color"
+metadata/_custom_type_script = "uid://cofd6ulk2f0gd"
+
 [connection signal="option_modified" from="SpriteOptionAccessor" to="." method="_on_sprite_option_accessor_option_modified"]
 [connection signal="option_modified" from="NameOptionAccessor" to="." method="_on_name_option_accessor_option_modified"]
+[connection signal="option_modified" from="NametagColorOptionAccessor" to="." method="_on_nametag_color_option_accessor_option_modified"]

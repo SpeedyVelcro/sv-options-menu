@@ -23,6 +23,8 @@
   `OptionOptionButton` node.
 - Added player name setting, which demonstrates the `OptionLineEdit`
   node.
+- Added nametag color setting, which demonstrates the
+  `OptionColorPickerButton` node.
 
 ### Breaking Changes
 - `OptionsConfig.custom_default_options` is now a dictionary with the
