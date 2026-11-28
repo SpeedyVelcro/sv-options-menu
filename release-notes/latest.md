@@ -21,6 +21,8 @@
 ### Example Game
 - Added player color setting, which demonstrates the
   `OptionOptionButton` node.
+- Added player name setting, which demonstrates the `OptionLineEdit`
+  node.
 
 ### Breaking Changes
 - `OptionsConfig.custom_default_options` is now a dictionary with the

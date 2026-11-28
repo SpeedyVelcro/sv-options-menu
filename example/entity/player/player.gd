@@ -6,7 +6,9 @@ extends CharacterBody2D
 
 @export_group("Internal")
 @export var _sprite_2d: Sprite2D
+@export var _name_label: Label
 @export var _sprite_option_accessor: OptionAccessor
+@export var _name_option_accessor: OptionAccessor
 
 var gravity: int = 800
 var move_speed: int = 200
@@ -16,6 +18,7 @@ var jump_speed: int = 400
 # Override
 func _ready() -> void:
 	_update_sprite_untyped(_sprite_option_accessor.get_value())
+	_update_name_untyped(_name_option_accessor.get_value())
 
 
 # Override
@@ -52,6 +55,23 @@ func _update_sprite(path: String) -> void:
 	_sprite_2d.texture = texture
 
 
+func _update_name_untyped(player_name: Variant) -> void:
+	if player_name is not String:
+		push_error("Cannot update name as name is not a String.")
+		return
+	
+	_update_name(player_name)
+
+
+func _update_name(player_name: String) -> void:
+	_name_label.text = player_name
+
+
 # Signal connection
 func _on_sprite_option_accessor_option_modified(new_value: Variant) -> void:
 	_update_sprite_untyped(new_value)
+
+
+# Signal connection
+func _on_name_option_accessor_option_modified(new_value: Variant) -> void:
+	_update_name_untyped(new_value)
